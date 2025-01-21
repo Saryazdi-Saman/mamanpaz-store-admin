@@ -18,5 +18,8 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/guest",
     },
+    {
+      resolve: "./src/modules/subscription-plan",
+    },
   ],
 })
