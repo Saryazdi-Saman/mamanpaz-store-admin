@@ -1,10 +1,10 @@
 import createPriceTierStep, { CreatePriceTierInput } from "./steps/create-price-tier"
-import { createWorkflow, transform } from "@medusajs/framework/workflows-sdk"
+import { createWorkflow, transform, WorkflowResponse } from "@medusajs/framework/workflows-sdk"
 import createPlanCategoryStep from "./steps/create-plan-category"
 import { createProductsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/core-flows"
 import { Modules, ProductStatus } from "@medusajs/framework/utils"
 import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"
-import getProductCategoryStep from "./steps/get-product-category"
+import getProductCategoryStep from "../shared/get-product-category"
 import testStep from "./steps/test-step"
 
 type CreateSubscriptionPlanPackageWorkflowInput = {
@@ -113,6 +113,11 @@ const createPriceTiersWorkflow = createWorkflow(
 
         createRemoteLinkStep(createLinkInput)
 
+        return new WorkflowResponse({
+            category: plan_category,
+            price_tiers: priceTiers,
+            product_id: product[0].id,
+        })
     },
 )
 

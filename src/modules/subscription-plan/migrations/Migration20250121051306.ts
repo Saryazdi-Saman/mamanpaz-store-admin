@@ -1,8 +1,11 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20250119234531 extends Migration {
+export class Migration20250121051306 extends Migration {
 
   async up(): Promise<void> {
+    this.addSql('create table if not exists "delivery_plan" ("id" text not null, "name" text not null, "is_active" boolean not null default true, "price" integer not null, "monday" integer not null default 0, "tuesday" integer not null default 0, "wednesday" integer not null default 0, "thursday" integer not null default 0, "friday" integer not null default 0, "saturday" integer not null default 0, "sunday" integer not null default 0, "created_at" timestamptz not null default now(), "updated_at" timestamptz not null default now(), "deleted_at" timestamptz null, constraint "delivery_plan_pkey" primary key ("id"));');
+    this.addSql('CREATE INDEX IF NOT EXISTS "IDX_delivery_plan_deleted_at" ON "delivery_plan" (deleted_at) WHERE deleted_at IS NULL;');
+
     this.addSql('create table if not exists "plan_category" ("id" text not null, "name" text not null, "is_active" boolean not null default true, "created_at" timestamptz not null default now(), "updated_at" timestamptz not null default now(), "deleted_at" timestamptz null, constraint "plan_category_pkey" primary key ("id"));');
     this.addSql('CREATE INDEX IF NOT EXISTS "IDX_plan_category_deleted_at" ON "plan_category" (deleted_at) WHERE deleted_at IS NULL;');
 
@@ -15,6 +18,8 @@ export class Migration20250119234531 extends Migration {
 
   async down(): Promise<void> {
     this.addSql('alter table if exists "price_tier" drop constraint if exists "price_tier_category_id_foreign";');
+
+    this.addSql('drop table if exists "delivery_plan" cascade;');
 
     this.addSql('drop table if exists "plan_category" cascade;');
 

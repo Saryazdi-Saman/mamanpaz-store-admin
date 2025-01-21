@@ -5,10 +5,7 @@ import { defineLink } from "@medusajs/framework/utils";
 export default defineLink(
     {
         linkable: SubscriptionPlanModule.linkable.priceTier,
-        deleteCascade: true,
+        deleteCascade: true
     },
-    {
-        linkable: ProductModule.linkable.productVariant,
-        deleteCascade: true,
-    }   
+    ProductModule.linkable.productVariant,
 )

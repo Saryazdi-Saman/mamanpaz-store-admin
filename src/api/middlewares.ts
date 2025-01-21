@@ -1,5 +1,5 @@
 import { defineMiddlewares, validateAndTransformBody } from "@medusajs/framework/http";
-import { createPriceTierSchema, queryPriceTiersSchema } from "./validation-schemas";
+import { createDeliveryPlanSchema, createPriceTierSchema, queryPriceTiersSchema } from "./validation-schemas";
 
 export default defineMiddlewares({
     routes: [
@@ -17,5 +17,12 @@ export default defineMiddlewares({
         //         validateAndTransformBody(queryPriceTiersSchema),
         //     ]
         // },
+        {
+            matcher: "/admin/delivery",
+            method: "POST",
+            middlewares: [
+                validateAndTransformBody(createDeliveryPlanSchema),
+            ]
+        },
     ],
 })

@@ -1,7 +1,7 @@
 import { AuthenticatedMedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 import { createPriceTierSchema } from "src/api/validation-schemas";
-import createPriceTiersWorkflow from "src/workflows/create-price-tiers.ts";
+import createPriceTiersWorkflow from "src/workflows/create-price-tiers";
 import { z } from "zod";
 
 type GetRequestBody = {
@@ -50,14 +50,10 @@ export const POST = async (
     req: AuthenticatedMedusaRequest<PostRequestBody>,
     res: MedusaResponse
 ) => {
-    console.log("POST REQUEST RECIEVED")
-    console.log(req.body)
     const price_tiers = req.validatedBody.price_tiers.map((price_tier) => ({
         ...price_tier,
         meals_per_week: price_tier.meals_per_day * 7,
     }))
-    console.log("PRICE TIERS")
-    console.log(price_tiers)
     const { result } = await createPriceTiersWorkflow(
         req.scope
     ).run({

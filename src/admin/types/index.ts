@@ -7,12 +7,6 @@ export type PriceTier = {
     category: string,
 }
 
-// export type PriceTierCategory = {
-//     id: string,
-//     name: string,
-//     price_tiers?: PriceTier[],
-// }
-
 export type PlanCategory = {
     id: string,
     name: string,
@@ -20,5 +14,23 @@ export type PlanCategory = {
     price_tiers: PriceTier[],
     product: {
         id: string,
+    }
+}
+
+export type DeliveryPlan = {
+    id: string,
+    name: string,
+    is_active: boolean,
+    price: number,
+    monday: number,
+    tuesday: number,
+    wednesday: number,
+    thursday: number,
+    friday: number,
+    saturday: number,
+    sunday: number,
+    product_variant: {
+        id: string,
+        product_id: string,
     }
 }

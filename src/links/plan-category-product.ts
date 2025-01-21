@@ -7,8 +7,5 @@ export default defineLink(
         linkable: SubscriptionPlanModule.linkable.planCategory,
         deleteCascade: true,
     },
-    {
-        linkable:ProductModule.linkable.product,
-        deleteCascade: true,
-    }
+    ProductModule.linkable.product,
 )

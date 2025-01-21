@@ -37,9 +37,9 @@ const CreatPriceTierPackage = ({
     setTiers([...tiers, {}]);
   };
 
-  useEffect(()=>{
-    setErrors({})
-  })
+  // useEffect(()=>{
+  //   setErrors({})
+  // })
 
   const removeTier = (index: number) => {
     setTiers((prev) => prev.filter((_, i) => i !== index));
@@ -83,8 +83,6 @@ const CreatPriceTierPackage = ({
       return tier;
     }));
   }
-  // const [result, setResult] = useState(null);
-  // const [productTitle, setProductTitle] = useState("")
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     // TODO handle submit
