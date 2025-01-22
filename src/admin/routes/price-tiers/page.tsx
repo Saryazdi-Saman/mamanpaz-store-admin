@@ -80,11 +80,8 @@ const PriceTiersPage = () => {
                             <Drawer.Body>
                                 <CreatPriceTierPackage onSuccess={() => {
                                     setOpen(false)
-                                    // if (currentPage === 0) {
-                                    //     fetchProducts()
-                                    // } else {
-                                    //     setCurrentPage(0)
-                                    // }
+                                    fetchPriceTiers()
+                                    fetchCategories()
                                 }} />
                             </Drawer.Body>
                         </Drawer.Content>

@@ -2,42 +2,29 @@ import {
     MedusaRequest,
     MedusaResponse,
 } from "@medusajs/framework/http"
-import {
-    createGuestWorkflow,
-} from "../../../workflows/create_guest"
-import { getGuestWorkflow } from "src/workflows/get_guest"
 import { InferTypeOf } from "@medusajs/framework/types"
 import { Guest } from "src/modules/guest/models/guest"
-import { updateGuestWorkflow } from "src/workflows/update_guest"
+import createGuestWorkflow from "src/workflows/guest-module/create-guest"
+import { getGuestWorkflow } from "src/workflows/guest-module/get-guest"
+import updateGuestWorkflow from "src/workflows/guest-module/update-guest"
 
 export const GET = async (
     req: MedusaRequest,
     res: MedusaResponse
 ) => {
-    // console.log(req.cookies.guest_session)
     const session: string | undefined = req.cookies.guest_session
-    // console.log(session)
-    // console.log(req.cookies)
     if (!session) {
         const { result } = await createGuestWorkflow(req.scope)
             .run()
 
         res.json({ guest: result })
-        // console.log("no cookie detected")
-        // console.log(session)
-        // console.log("result")
-        // console.log(result)
     } else {
-        // console.log("cookie detected")
-        // console.log(session)
         const { result } = await getGuestWorkflow(req.scope)
             .run({
                 input: {
                     token: session
                 }
             })
-        // console.log("result")
-        // console.log(result)
         res.json({ guest: result })
     }
 }

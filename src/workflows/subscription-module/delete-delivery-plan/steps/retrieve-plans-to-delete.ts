@@ -1,5 +1,5 @@
 import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
-import DeliveryPlanVariantLink from "../../../links/delivery-plan-product-variant"
+import DeliveryPlanVariantLink from "src/links/delivery-plan-product-variant"
 import { Modules } from "@medusajs/framework/utils"
 
 type RetrieveDeliveryPlansToDeleteStepInput = {

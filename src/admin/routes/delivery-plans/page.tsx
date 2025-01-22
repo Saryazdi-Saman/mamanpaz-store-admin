@@ -22,10 +22,8 @@ const DeliveryPlansPage = () => {
     }
 
     useEffect(() => {
-        if (!open) {
             fetchPlans()
-        }
-    }, [open])
+    }, [])
 
     return (
         <Container className="price-tier-table">
@@ -49,6 +47,7 @@ const DeliveryPlansPage = () => {
                         <Drawer.Body>
                             <CreateDeliveryPlanForm onSuccess={() => {
                                 setOpen(false)
+                                fetchPlans()
                             }} />
                         </Drawer.Body>
                     </Drawer.Content>

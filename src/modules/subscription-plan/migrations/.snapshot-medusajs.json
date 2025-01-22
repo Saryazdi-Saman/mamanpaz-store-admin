@@ -36,12 +36,12 @@
         },
         "price": {
           "name": "price",
-          "type": "integer",
+          "type": "numeric",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "mappedType": "integer"
+          "mappedType": "decimal"
         },
         "monday": {
           "name": "monday",
@@ -112,6 +112,15 @@
           "nullable": false,
           "default": "0",
           "mappedType": "integer"
+        },
+        "raw_price": {
+          "name": "raw_price",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "json"
         },
         "created_at": {
           "name": "created_at",

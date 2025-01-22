@@ -1,5 +1,5 @@
 import { SubscriberConfig } from "@medusajs/framework";
-import { deleteVariantDeliveryPlansWorkflow } from "src/workflows/delete-delivery-plan";
+import deleteVariantDeliveryPlansWorkflow from "src/workflows/subscription-module/delete-delivery-plan";
 
 export default async function handleProductVariantDeleted({
     event: { data },

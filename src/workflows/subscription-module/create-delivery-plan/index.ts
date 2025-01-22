@@ -1,6 +1,6 @@
 import { createWorkflow, transform, WorkflowResponse } from "@medusajs/framework/workflows-sdk"
 import createDeliveryPlanStep from "./steps/create-delivery-plan"
-import getProductCategoryStep from "../shared/get-product-category"
+import getProductCategoryStep from "../../shared/get-product-category"
 import createDeliveryProductStep from "./steps/create-delivery-product"
 import { createProductVariantsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/core-flows"
 import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"

@@ -1,6 +1,6 @@
 import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
-import { SUBSCRIPTION_PLAN_MODULE } from "../../../modules/subscription-plan"
-import SubscriptionPlanModuleService from "../../../modules/subscription-plan/service"
+import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"
+import SubscriptionPlanModuleService from "src/modules/subscription-plan/service"
 
 type DeleteSeliveryPlansStep = {
   ids: string[]

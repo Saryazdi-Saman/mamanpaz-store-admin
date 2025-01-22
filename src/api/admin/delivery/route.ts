@@ -1,7 +1,7 @@
 import { AuthenticatedMedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 import { createDeliveryPlanSchema } from "src/api/validation-schemas";
-import createDeliveryPlanWorkflow from "src/workflows/create-delivery-plan";
+import createDeliveryPlanWorkflow from "src/workflows/subscription-module/create-delivery-plan";
 import z from "zod";
 
 export const GET = async (

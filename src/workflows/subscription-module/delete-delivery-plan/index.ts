@@ -6,7 +6,7 @@ type DeleteVariantDeliveryPlansInput = {
     id: string
 }
 
-export const deleteVariantDeliveryPlansWorkflow = createWorkflow(
+const deleteVariantDeliveryPlansWorkflow = createWorkflow(
     "delete-variant-delivery-plans-workflow",
     (input : DeleteVariantDeliveryPlansInput) => {
         const deliveryPlansToDelete = retrieveDeliveryPlansToDeleteStep({
@@ -20,3 +20,5 @@ export const deleteVariantDeliveryPlansWorkflow = createWorkflow(
         return new WorkflowResponse({})
     }
 )
+
+export default deleteVariantDeliveryPlansWorkflow

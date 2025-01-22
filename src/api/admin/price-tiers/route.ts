@@ -1,7 +1,7 @@
 import { AuthenticatedMedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 import { createPriceTierSchema } from "src/api/validation-schemas";
-import createPriceTiersWorkflow from "src/workflows/create-price-tiers";
+import createPriceTiersWorkflow from "src/workflows/subscription-module/create-price-tiers";
 import { z } from "zod";
 
 type GetRequestBody = {

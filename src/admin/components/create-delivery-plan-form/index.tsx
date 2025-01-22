@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Input, Button, Select, toast, CurrencyInput, Label } from "@medusajs/ui"
+import { Input, Button, toast, CurrencyInput, Label } from "@medusajs/ui"
 import { z } from "zod"
 import { CreateDeliveryPlanSchema } from "../../validation-schemas"
 

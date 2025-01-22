@@ -4,7 +4,7 @@ import createPlanCategoryStep from "./steps/create-plan-category"
 import { createProductsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/core-flows"
 import { Modules, ProductStatus } from "@medusajs/framework/utils"
 import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"
-import getProductCategoryStep from "../shared/get-product-category"
+import getProductCategoryStep from "../../shared/get-product-category"
 import testStep from "./steps/test-step"
 
 type CreateSubscriptionPlanPackageWorkflowInput = {
