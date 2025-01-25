@@ -23,6 +23,9 @@ importers:
       '@medusajs/medusa':
         specifier: 2.3.0
         version: 2.3.0(6mj7mjghxqb5spgraeyhpdlg7y)
+      '@medusajs/types':
+        specifier: ^2.3.1
+        version: 2.3.1(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/ui':
         specifier: ^4.0.3
         version: 4.0.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)
@@ -1504,8 +1507,8 @@ packages:
       '@medusajs/medusa':
         optional: true
 
-  '@medusajs/types@2.3.0':
-    resolution: {integrity: sha512-G2ljHo0RRekcKFbyCVZ4uefRbC/TPn5eM+yO3ijM5dgvaoIQmEA1Vhb3K/mWW+421qx0wN5PEGv4DCce54vABQ==}
+  '@medusajs/types@2.3.1':
+    resolution: {integrity: sha512-iGr8Kql5TqHKcQ1Nnnmp6DYof6utzvy0dJcSAWcY4m0scU2nF+6R+s2kGe6rDuDArXBeFyVEUYd5TtbHqy7o6Q==}
     engines: {node: '>=20'}
     peerDependencies:
       awilix: ^8.0.1
@@ -8174,7 +8177,7 @@ snapshots:
       '@medusajs/modules-sdk': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/orchestration': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/telemetry': 2.3.0
-      '@medusajs/types': 2.3.0(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
+      '@medusajs/types': 2.3.1(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/utils': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/workflows-sdk': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
       '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))
@@ -8239,7 +8242,7 @@ snapshots:
 
   '@medusajs/js-sdk@2.3.0(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))':
     dependencies:
-      '@medusajs/types': 2.3.0(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
+      '@medusajs/types': 2.3.1(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
       fetch-event-stream: 0.1.5
       qs: 6.14.0
     transitivePeerDependencies:
@@ -8372,7 +8375,7 @@ snapshots:
   '@medusajs/modules-sdk@2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))':
     dependencies:
       '@medusajs/orchestration': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
-      '@medusajs/types': 2.3.0(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
+      '@medusajs/types': 2.3.1(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/utils': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
       '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))
       '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1)
@@ -8409,7 +8412,7 @@ snapshots:
 
   '@medusajs/orchestration@2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))':
     dependencies:
-      '@medusajs/types': 2.3.0(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
+      '@medusajs/types': 2.3.1(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/utils': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
       '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))
       '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1)
@@ -8542,7 +8545,7 @@ snapshots:
       - debug
       - supports-color
 
-  '@medusajs/types@2.3.0(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))':
+  '@medusajs/types@2.3.1(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))':
     dependencies:
       awilix: 8.0.1
       bignumber.js: 9.1.2
@@ -8600,7 +8603,7 @@ snapshots:
       '@graphql-codegen/typescript': 4.1.2(@babel/core@7.26.0)(graphql@16.10.0)
       '@graphql-tools/merge': 9.0.17(graphql@16.10.0)
       '@graphql-tools/schema': 10.0.16(graphql@16.10.0)
-      '@medusajs/types': 2.3.0(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
+      '@medusajs/types': 2.3.1(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
       '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))
       '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1)
       '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.17.14)(pg@8.13.1)
@@ -8651,7 +8654,7 @@ snapshots:
     dependencies:
       '@medusajs/modules-sdk': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/orchestration': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
-      '@medusajs/types': 2.3.0(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
+      '@medusajs/types': 2.3.1(awilix@8.0.1)(ioredis@5.4.2)(vite@5.4.11(@types/node@20.17.14))
       '@medusajs/utils': 2.3.0(@babel/core@7.26.0)(@mikro-orm/core@5.9.7)(@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1))(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))(awilix@8.0.1)(express@4.21.2)(ioredis@5.4.2)(pg@8.13.1)(vite@5.4.11(@types/node@20.17.14))
       '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7))
       '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.13.1)

@@ -1,10 +1,11 @@
 import { createWorkflow, transform, WorkflowResponse } from "@medusajs/framework/workflows-sdk"
 import createDeliveryPlanStep from "./steps/create-delivery-plan"
-import getProductCategoryStep from "../../shared/get-product-category"
 import createDeliveryProductStep from "./steps/create-delivery-product"
 import { createProductVariantsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/core-flows"
 import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"
 import { Modules } from "@medusajs/framework/utils"
+import getDeliveryProductCategoryStep from "./steps/get-delivery-product-category"
+import getDeliveryProductTypeStep from "./steps/get-delivery-product-type"
 
 export type CreateDeliveryPlanInput = {
     name: string,
@@ -23,10 +24,13 @@ const createDeliveryPlanWorkflow = createWorkflow(
     (input: CreateDeliveryPlanInput) => {
         const { delivery_plan } = createDeliveryPlanStep(input)
 
-        const { product_category } = getProductCategoryStep()
+        const { product_category } = getDeliveryProductCategoryStep()
+
+        const {product_type_id} = getDeliveryProductTypeStep()
 
         const { product } = createDeliveryProductStep({
             category_id: product_category.id,
+            type_id: product_type_id,
         })
 
         const variant = createProductVariantsWorkflow.runAsStep({

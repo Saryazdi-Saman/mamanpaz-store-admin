@@ -20,6 +20,7 @@ export const GET = async (
             "product_variant.product_id",
         ],
     })
+    console.log("deliveryPlans", deliveryPlans)
     res.json({
         data: deliveryPlans,
     })

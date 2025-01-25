@@ -1,8 +1,8 @@
 import { Modules } from "@medusajs/framework/utils"
 import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
 
-const getProductCategoryStep = createStep(
-    "create-product-category-step",
+const getPlanProductCategoryStep = createStep(
+    "get-plan-product-category-step",
     async ({ }, { container }) => {
         const productService = container.resolve(Modules.PRODUCT)
 
@@ -27,4 +27,4 @@ const getProductCategoryStep = createStep(
     }
 )
 
-export default getProductCategoryStep
+export default getPlanProductCategoryStep

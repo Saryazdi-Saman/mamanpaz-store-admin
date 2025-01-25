@@ -3,6 +3,8 @@ import {
     MedusaResponse,
 } from "@medusajs/framework/http"
 import { InferTypeOf } from "@medusajs/framework/types"
+import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
+import guest from "src/modules/guest"
 import { Guest } from "src/modules/guest/models/guest"
 import createGuestWorkflow from "src/workflows/guest-module/create-guest"
 import { getGuestWorkflow } from "src/workflows/guest-module/get-guest"
@@ -12,22 +14,44 @@ export const GET = async (
     req: MedusaRequest,
     res: MedusaResponse
 ) => {
-    const session: string | undefined = req.cookies.guest_session
-    if (!session) {
-        const { result } = await createGuestWorkflow(req.scope)
-            .run()
-
-        res.json({ guest: result })
-    } else {
-        const { result } = await getGuestWorkflow(req.scope)
-            .run({
-                input: {
-                    token: session
-                }
-            })
-        res.json({ guest: result })
-    }
+    const { result } = await createGuestWorkflow(req.scope)
+        .run()
+    res.json({ cart_id: result.cart.id, token: result.guest.token })
 }
+
+// export const GET = async (
+//     req: MedusaRequest,
+//     res: MedusaResponse
+// ) => {
+//     const session: string | undefined = req.cookies.guest_session
+//     console.log("Session: ", session)
+//     if (!session) {
+//         const { result } = await createGuestWorkflow(req.scope)
+//             .run()
+//         res.json({ cart: result.cart, token: result.guest.token })
+//     } else {
+//         const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
+//         const {
+//             data: guest,
+//         } = await query.graph({
+//             entity: "guest",
+//             fields: [
+//                 "*",
+//                 "cart.id",
+//             ],
+//             filters: {
+//                 token: session
+//             }
+//         })
+//         if (!guest || guest.length === 0) {
+//             const { result } = await createGuestWorkflow(req.scope)
+//                 .run()
+//             res.json({ cart: result.cart, token: result.guest.token })
+//         } else {
+//             res.json({ cart: guest[0].cart, token: guest[0].token })
+//         }
+//     }
+// }
 
 type PUTRequest = {
     updates: Partial<InferTypeOf<typeof Guest>>

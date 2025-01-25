@@ -3,6 +3,7 @@ import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
 
 type CreateDeliveryProductInput = {
     category_id: string,
+    type_id: string,
 }
 const createDeliveryProductStep = createStep(
     "create-delivery-product-step",
@@ -17,6 +18,7 @@ const createDeliveryProductStep = createStep(
             const newProduct = await productService.createProducts({
                 title: "Delivery Plan",
                 category_ids: [input.category_id],
+                type_id: input.type_id,
                 status: "published",
             })
             return new StepResponse({
