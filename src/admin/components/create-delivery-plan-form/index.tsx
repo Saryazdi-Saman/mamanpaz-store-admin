@@ -18,6 +18,7 @@ const CreateDeliveryPlanForm = ({
 }: Props) => {
   const [plan, setPlan] = useState({
     name: "",
+    slug: "",
     monday: "",
     tuesday: "",
     wednesday: "",
@@ -107,13 +108,22 @@ const CreateDeliveryPlanForm = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <Input
-        name="title"
-        placeholder="Title"
-        type="text"
-        value={plan?.name}
-        onChange={(e) => updatePlan("name", e.target.value)}
-      />
+      <div className="flex flex-col gap-2">
+        <Input
+          name="title"
+          placeholder="Title"
+          type="text"
+          value={plan?.name}
+          onChange={(e) => updatePlan("name", e.target.value)}
+        />
+        <Input
+          name="slug"
+          placeholder="slug"
+          type="text"
+          value={plan?.slug}
+          onChange={(e) => updatePlan("slug", e.target.value)}
+        />
+      </div>
       <fieldset className="my-4 space-y-2">
         <legend className="">Schedule</legend>
         <div className="grid grid-cols-[1fr_3fr] gap-y-2 grid-rows-7 justify-items-start">
@@ -147,7 +157,7 @@ const CreateDeliveryPlanForm = ({
             name="thursday"
             type="text"
             value={plan?.thursday}
-            onChange={(e) => updatePlan("thursday",e.target.value)}
+            onChange={(e) => updatePlan("thursday", e.target.value)}
           />
           <Label htmlFor="friday">Friday :</Label>
           <Input
@@ -163,7 +173,7 @@ const CreateDeliveryPlanForm = ({
             name="saturday"
             type="text"
             value={plan?.saturday}
-            onChange={(e) => updatePlan("saturday",e.target.value)}
+            onChange={(e) => updatePlan("saturday", e.target.value)}
           />
           <Label htmlFor="sunday">Sunday :</Label>
           <Input

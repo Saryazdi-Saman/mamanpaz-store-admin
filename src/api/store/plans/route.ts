@@ -6,7 +6,7 @@ export const GET = async (
     res: MedusaResponse
 ) => {
     const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
-    console.log("GET STORE PLANS API")
+    
     const {
         data: plans,
     } = await query.graph({
@@ -14,6 +14,7 @@ export const GET = async (
         fields: [
             "id",
             "name",
+            "slug",
             "meals_per_day",
             "meals_per_week",
             "price_per_meal",

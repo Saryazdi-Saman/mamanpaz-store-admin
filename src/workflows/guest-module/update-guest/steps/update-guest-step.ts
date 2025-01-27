@@ -3,10 +3,12 @@ import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
 import { GUEST_MODULE } from "src/modules/guest"
 import { Guest } from "src/modules/guest/models/guest"
 import GuestModuleService from "src/modules/guest/service"
+import { OnboardingStage } from "src/modules/guest/types"
 
 type updateStepInput = {
     guest: InferTypeOf<typeof Guest>
     updates: Partial<InferTypeOf<typeof Guest>>
+    next_stage: OnboardingStage
 }
 
 const updateGuestStep = createStep(
@@ -16,16 +18,10 @@ const updateGuestStep = createStep(
             GUEST_MODULE
         )
 
-        const allowedUpdates = ["daily_meals", "weekly_meals", "delivery", "email", "email_verified", "password", "name", "last_name", "address", "city"]
-
-        const updates = {
-            ...Object.fromEntries(
-                Object.entries(input.updates)
-                    .filter(([key]) => allowedUpdates.includes(key))
-            ),
+        const guest = await guestModuleService.updateGuests({
             id: input.guest.id,
-        }
-        const guest = await guestModuleService.updateGuests(updates)
+            current_stage: input.next_stage,
+        })
         const prevState = input.guest
 
         return new StepResponse(guest, prevState)

@@ -3,6 +3,7 @@ import { model } from "@medusajs/framework/utils";
 const DeliveryPlan = model.define("delivery_plan", {
     id: model.id().primaryKey(),
     name: model.text(),
+    slug: model.text().unique(),
     is_active: model.boolean().default(true),
     price: model.bigNumber(),
     monday: model.number().default(0),

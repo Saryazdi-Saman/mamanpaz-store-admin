@@ -1,7 +1,11 @@
 import { model } from "@medusajs/framework/utils"
+import { OnboardingStage } from "../types"
+import { StageHistory } from "./stage-history"
+import { UTM } from "./utm"
 
 export const Guest = model.define("guest", {
   id: model.id().primaryKey(),
+  current_stage: model.enum(OnboardingStage).default(OnboardingStage.INITIAL).index("GUEST_CURRENT_STAGE"),
   phone_number: model.text().nullable(),
   phone_verified: model.boolean().default(false),
   email: model.text().nullable(),
@@ -11,5 +15,13 @@ export const Guest = model.define("guest", {
   address: model.text().nullable(),
   city: model.text().nullable(),
   expires_at: model.dateTime(),
+  last_active_at: model.dateTime().index("GUEST_LAST_ACTIVE_AT"),
   token: model.text().unique().index("GUEST_TOKEN"),
+  
+  process_history: model.hasMany(() => StageHistory, {
+    mappedBy: "guest",
+  }),
+  utm: model.hasMany(() => UTM, {
+    mappedBy: "guest",
+  }),
 })

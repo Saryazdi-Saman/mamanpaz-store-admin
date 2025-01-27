@@ -37,10 +37,6 @@ const CreatPriceTierPackage = ({
     setTiers([...tiers, {}]);
   };
 
-  // useEffect(()=>{
-  //   setErrors({})
-  // })
-
   const removeTier = (index: number) => {
     setTiers((prev) => prev.filter((_, i) => i !== index));
     // Clear errors for removed tier
@@ -122,87 +118,102 @@ const CreatPriceTierPackage = ({
         price_tiers: data,
       }),
     })
-    .then((res) => res.json())
-    .then(({message}) => {
-      if (message) {
-        toast.error(message)
-      }
-      onSuccess?.()
-    })
+      .then((res) => res.json())
+      .then(({ message }) => {
+        if (message) {
+          toast.error(message)
+        }
+        onSuccess?.()
+      })
     toast.success("Successfully validated price tier package")
     setLoading(false)
   }
 
-  // const getFieldError = (index: string, field: keyof PriceTierInputType): string | undefined => {
-  //   return errors[index]?.[field]?.[0];
-  // };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        name="category_name"
-        placeholder="Category Title"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <fieldset className="my-4 space-y-2">
-        <legend className="">Tiers</legend>
-        {tiers.map((tier, index) => (
-          <div key={index} className="flex gap-2">
-            <Input
-              name="title"
-              placeholder="Title"
-              type="text"
-              value={tier.name}
-              onChange={(e) => updateTier(index, "name", e.target.value)}
-              required
-            />
-            <Input
-              name="meals_per_day"
-              placeholder="# Meals / day"
-              type="text"
-              className="text-right"
-              value={tier.meals_per_day}
-              onChange={(e) => updateTier(index, "meals_per_day", Number(e.target.value))}
-              required
-            />
-            <CurrencyInput
-              symbol="$"
-              code="cad"
-              name="price_per_meal"
-              placeholder="Price / meal"
-              allowDecimals={true}
-              allowNegativeValue={false}
-              decimalScale={2}
-              type="text"
-              className="max-w-48"
-              value={tier.price_per_meal}
-              onChange={(e) => updateTier(index, "price_per_meal", e.target.value)}
-              required
-            />
-            <Button
-              type="button"
-              size="small"
-              onClick={() => removeTier(index)}
-              className=""
-              disabled={tiers.length === 1}
-            >
-              <Minus />
-            </Button>
-          </div>
-        ))}
-      </fieldset>
-      <div className="flex justify-between">
-        <Button
-          type="submit"
-          isLoading={loading}
-        >
-          Create
-        </Button>
-        <Button type="button" onClick={addTier}><Plus />Add Tier</Button>
-      </div>
-    </form>
+    <div className="h-full max-h-[46rem] overflow-y-scroll relative px-4 py-2">
+
+      <form onSubmit={handleSubmit}>
+        <Input
+          name="category_name"
+          placeholder="Category Title"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <fieldset className="my-4 space-y-4">
+          <legend className="">Tiers</legend>
+          {tiers.map((tier, index) => (
+            <div key={index} className="flex gap-2 items-center justify-between">
+              <div className="input-fields flex flex-col gap-2 items-start">
+                <div className="flex gap-2">
+
+                  <Input
+                    name="title"
+                    placeholder="Title"
+                    type="text"
+                    value={tier.name}
+                    onChange={(e) => updateTier(index, "name", e.target.value)}
+                    required
+                  />
+                  <Input
+                    name="slug"
+                    placeholder="slug"
+                    type="text"
+                    value={tier.slug}
+                    onChange={(e) => updateTier(index, "slug", e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <Input
+                    name="meals_per_day"
+                    placeholder="# Meals / day"
+                    type="text"
+                    className="text-right"
+                    value={tier.meals_per_day}
+                    onChange={(e) => updateTier(index, "meals_per_day", Number(e.target.value))}
+                    required
+                  />
+                  <CurrencyInput
+                    symbol="$"
+                    code="cad"
+                    name="price_per_meal"
+                    placeholder="Price / meal"
+                    allowDecimals={true}
+                    allowNegativeValue={false}
+                    decimalScale={2}
+                    type="text"
+                    className="max-w-48"
+                    value={tier.price_per_meal}
+                    onChange={(e) => updateTier(index, "price_per_meal", e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <Button
+                type="button"
+                size="small"
+                onClick={() => removeTier(index)}
+                className=""
+                disabled={tiers.length === 1}
+              >
+                <Minus />
+                <span className="">Remove</span>
+              </Button>
+            </div>
+          ))}
+        </fieldset>
+        <div className="flex justify-between">
+          <Button
+            type="submit"
+            isLoading={loading}
+          >
+            Create
+          </Button>
+          <Button type="button" onClick={addTier}><Plus />Add Tier</Button>
+        </div>
+      </form>
+    </div>
   )
 }
 

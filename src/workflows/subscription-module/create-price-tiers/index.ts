@@ -5,6 +5,7 @@ import { createProductsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/c
 import { Modules, ProductStatus } from "@medusajs/framework/utils"
 import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"
 import getPlanProductCategoryStep from "./steps/get-plan-product-category"
+import getPlanProductTypeStep from "./steps/get-plan-product-type"
 
 type CreateSubscriptionPlanPackageWorkflowInput = {
     name: string,
@@ -65,11 +66,14 @@ const createPriceTiersWorkflow = createWorkflow(
 
         const { product_category } = getPlanProductCategoryStep()
 
+        const { product_type_id } = getPlanProductTypeStep()
+
         const product = createProductsWorkflow.runAsStep({
             input: {
                 products: [
                     {
                         title: name,
+                        type_id: product_type_id,
                         category_ids: [product_category.id],
                         status: ProductStatus.PUBLISHED,
                         options: [

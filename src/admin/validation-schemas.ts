@@ -1,9 +1,21 @@
 import { z } from "zod";
 
+const slugify = (str: string) => {
+    return str
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')    // Remove special characters
+        .replace(/[\s_-]+/g, '-')    // Replace spaces and underscores with hyphens
+        .replace(/^-+|-+$/g, '');    // Remove leading/trailing hyphens
+};
+
 export const PriceTierSchema = z.object({
     name: z.string()
         .transform(val => val.trim())
         .refine(val => val.length > 0, "Name is required"),
+    slug: z.string()
+        .transform(val => slugify(val))
+        .refine(val => val.length > 0, "slug is required"),
     meals_per_day: z.number()
         .int("Must be a whole number")
         .min(1, "Must provide at least 1 meal per day"),
@@ -43,6 +55,9 @@ export const CreateDeliveryPlanSchema = z.object({
     name: z.string()
         .transform(val => val.trim())
         .refine(val => val.length > 0, "Name is required"),
+    slug: z.string()
+        .transform(val => slugify(val))
+        .refine(val => val.length > 0, "slug is required"),
     monday: z.optional(z.string()
         .transform(val => {
             if (!val) return undefined;

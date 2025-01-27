@@ -15,6 +15,16 @@
           "nullable": false,
           "mappedType": "text"
         },
+        "current_stage": {
+          "name": "current_stage",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'initial'",
+          "mappedType": "text"
+        },
         "phone_number": {
           "name": "phone_number",
           "type": "text",
@@ -98,6 +108,16 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "last_active_at": {
+          "name": "last_active_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "token": {
           "name": "token",
           "type": "text",
@@ -144,6 +164,22 @@
       "schema": "public",
       "indexes": [
         {
+          "keyName": "GUEST_CURRENT_STAGE",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"GUEST_CURRENT_STAGE\" ON \"guest\" (current_stage) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "GUEST_LAST_ACTIVE_AT",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"GUEST_LAST_ACTIVE_AT\" ON \"guest\" (last_active_at) WHERE deleted_at IS NULL"
+        },
+        {
           "keyName": "IDX_guest_token_unique",
           "columnNames": [],
           "composite": false,
@@ -179,6 +215,267 @@
       ],
       "checks": [],
       "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "stage": {
+          "name": "stage",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'initial'",
+          "mappedType": "text"
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "guest_id": {
+          "name": "guest_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "now()",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "now()",
+          "mappedType": "datetime"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "stage_history",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "IDX_stage_history_guest_id",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_stage_history_guest_id\" ON \"stage_history\" (guest_id) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "IDX_stage_history_deleted_at",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_stage_history_deleted_at\" ON \"stage_history\" (deleted_at) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "stage_history_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "stage_history_guest_id_foreign": {
+          "constraintName": "stage_history_guest_id_foreign",
+          "columnNames": [
+            "guest_id"
+          ],
+          "localTableName": "public.stage_history",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.guest",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "medium": {
+          "name": "medium",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "campaign": {
+          "name": "campaign",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "term": {
+          "name": "term",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "guest_id": {
+          "name": "guest_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "now()",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "now()",
+          "mappedType": "datetime"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "utm",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "IDX_utm_guest_id",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_guest_id\" ON \"utm\" (guest_id) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "IDX_utm_deleted_at",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_deleted_at\" ON \"utm\" (deleted_at) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "utm_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "utm_guest_id_foreign": {
+          "constraintName": "utm_guest_id_foreign",
+          "columnNames": [
+            "guest_id"
+          ],
+          "localTableName": "public.utm",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.guest",
+          "updateRule": "cascade"
+        }
+      }
     }
   ]
 }

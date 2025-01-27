@@ -12,6 +12,7 @@ const createDeliveryPlanStep = createStep(
         const deliveryPlan = await subscriptionPlanModuleService
             .createDeliveryPlans({
                 name: input.name,
+                slug: input.slug,
                 price: input.price,
                 monday: input.monday,
                 tuesday: input.tuesday,

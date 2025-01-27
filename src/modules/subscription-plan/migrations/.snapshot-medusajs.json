@@ -24,6 +24,15 @@
           "nullable": false,
           "mappedType": "text"
         },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
         "is_active": {
           "name": "is_active",
           "type": "boolean",
@@ -159,6 +168,14 @@
       "schema": "public",
       "indexes": [
         {
+          "keyName": "IDX_delivery_plan_slug_unique",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE UNIQUE INDEX IF NOT EXISTS \"IDX_delivery_plan_slug_unique\" ON \"delivery_plan\" (slug) WHERE deleted_at IS NULL"
+        },
+        {
           "keyName": "IDX_delivery_plan_deleted_at",
           "columnNames": [],
           "composite": false,
@@ -286,6 +303,15 @@
           "nullable": false,
           "mappedType": "text"
         },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
         "meals_per_week": {
           "name": "meals_per_week",
           "type": "integer",
@@ -367,6 +393,14 @@
       "name": "price_tier",
       "schema": "public",
       "indexes": [
+        {
+          "keyName": "IDX_price_tier_slug_unique",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE UNIQUE INDEX IF NOT EXISTS \"IDX_price_tier_slug_unique\" ON \"price_tier\" (slug) WHERE deleted_at IS NULL"
+        },
         {
           "keyName": "IDX_price_tier_category_id",
           "columnNames": [],

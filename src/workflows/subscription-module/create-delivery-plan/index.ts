@@ -9,6 +9,7 @@ import getDeliveryProductTypeStep from "./steps/get-delivery-product-type"
 
 export type CreateDeliveryPlanInput = {
     name: string,
+    slug: string,
     price: number,
     monday?: number,
     tuesday?: number,

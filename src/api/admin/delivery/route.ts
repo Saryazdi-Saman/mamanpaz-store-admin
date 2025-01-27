@@ -39,6 +39,7 @@ export const POST = async (
     ).run({
         input: {
             name: req.validatedBody.name,
+            slug: req.validatedBody.slug,
             price: req.validatedBody.price,
             monday: req.validatedBody.monday,
             tuesday: req.validatedBody.tuesday,
