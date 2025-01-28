@@ -6,6 +6,7 @@ import { InferTypeOf } from "@medusajs/framework/types"
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
 import { GUEST_MODULE } from "src/modules/guest"
 import { Guest } from "src/modules/guest/models/guest"
+import { OnboardingStage } from "src/modules/guest/types"
 import createGuestWorkflow from "src/workflows/guest-module/create-guest"
 import updateGuestWorkflow from "src/workflows/guest-module/update-guest"
 
@@ -60,6 +61,7 @@ export const POST = async (
 
 type PUTRequest = {
     updates: Partial<InferTypeOf<typeof Guest>>
+    next_step: OnboardingStage
 }
 
 export const PUT = async (
@@ -80,6 +82,7 @@ export const PUT = async (
                 input: {
                     token: cookieSession,
                     updates: req.body.updates,
+                    next_stage: req.body.next_step,
                 }
             })
         res.json({ guest: result })

@@ -21,6 +21,7 @@ const updateGuestStep = createStep(
         const guest = await guestModuleService.updateGuests({
             id: input.guest.id,
             current_stage: input.next_stage,
+            ...input.updates,
         })
         const prevState = input.guest
 

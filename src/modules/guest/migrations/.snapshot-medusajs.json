@@ -118,6 +118,15 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "phone_verification_code": {
+          "name": "phone_verification_code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
         "token": {
           "name": "token",
           "type": "text",

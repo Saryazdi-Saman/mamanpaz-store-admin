@@ -1,7 +1,7 @@
 export enum OnboardingStage {
     INITIAL = "initial",
     CREDENTIALS = "credentials",
-    PERSONAL_INFO = "personal_info",
+    VERIFY_PHONE_NUMBER = "verify_phone_number",
     ADDRESS = "address",
     PAYMENT = "payment",
     COMPLETE = "complete",

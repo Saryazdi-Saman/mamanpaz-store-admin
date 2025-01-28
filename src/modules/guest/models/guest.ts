@@ -5,7 +5,7 @@ import { UTM } from "./utm"
 
 export const Guest = model.define("guest", {
   id: model.id().primaryKey(),
-  current_stage: model.enum(OnboardingStage).default(OnboardingStage.INITIAL).index("GUEST_CURRENT_STAGE"),
+  current_stage: model.text().default(OnboardingStage.INITIAL).index("GUEST_CURRENT_STAGE"),
   phone_number: model.text().nullable(),
   phone_verified: model.boolean().default(false),
   email: model.text().nullable(),
@@ -16,6 +16,7 @@ export const Guest = model.define("guest", {
   city: model.text().nullable(),
   expires_at: model.dateTime(),
   last_active_at: model.dateTime().index("GUEST_LAST_ACTIVE_AT"),
+  phone_verification_code: model.text().nullable(),
   token: model.text().unique().index("GUEST_TOKEN"),
   
   process_history: model.hasMany(() => StageHistory, {

@@ -21,5 +21,22 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/subscription-plan",
     },
+    {
+      resolve: "@medusajs/medusa/notification",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/twilio-sms",
+            id: "twilio-sms",
+            options: {
+              accountSid: process.env.TWILIO_ACCOUNT_SID,
+              authToken: process.env.TWILIO_AUTH_TOKEN,
+              twilioNumber: process.env.TWILIO_PHONE_NUMBER,
+              channels: [ "sms" ]
+            }
+          }
+        ]
+      },
+    },
   ],
 })
