@@ -426,6 +426,15 @@
           "nullable": false,
           "mappedType": "text"
         },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
         "source": {
           "name": "source",
           "type": "text",
@@ -441,11 +450,20 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": true,
+          "nullable": false,
           "mappedType": "text"
         },
         "campaign": {
           "name": "campaign",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "content": {
+          "name": "content",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -462,8 +480,120 @@
           "nullable": true,
           "mappedType": "text"
         },
-        "content": {
-          "name": "content",
+        "short_path": {
+          "name": "short_path",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "destination_url": {
+          "name": "destination_url",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "now()",
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "default": "now()",
+          "mappedType": "datetime"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "utm_source",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "IDX_utm_source_short_path_unique",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE UNIQUE INDEX IF NOT EXISTS \"IDX_utm_source_short_path_unique\" ON \"utm_source\" (short_path) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "IDX_utm_source_deleted_at",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_source_deleted_at\" ON \"utm_source\" (deleted_at) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "utm_source_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "ip_address": {
+          "name": "ip_address",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "user_agent": {
+          "name": "user_agent",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "referrer": {
+          "name": "referrer",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -473,6 +603,15 @@
         },
         "guest_id": {
           "name": "guest_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "utm_source_id": {
+          "name": "utm_source_id",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -513,27 +652,35 @@
           "mappedType": "datetime"
         }
       },
-      "name": "utm",
+      "name": "utm_visit",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "IDX_utm_guest_id",
+          "keyName": "IDX_utm_visit_guest_id",
           "columnNames": [],
           "composite": false,
           "primary": false,
           "unique": false,
-          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_guest_id\" ON \"utm\" (guest_id) WHERE deleted_at IS NULL"
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_visit_guest_id\" ON \"utm_visit\" (guest_id) WHERE deleted_at IS NULL"
         },
         {
-          "keyName": "IDX_utm_deleted_at",
+          "keyName": "IDX_utm_visit_utm_source_id",
           "columnNames": [],
           "composite": false,
           "primary": false,
           "unique": false,
-          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_deleted_at\" ON \"utm\" (deleted_at) WHERE deleted_at IS NULL"
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_visit_utm_source_id\" ON \"utm_visit\" (utm_source_id) WHERE deleted_at IS NULL"
         },
         {
-          "keyName": "utm_pkey",
+          "keyName": "IDX_utm_visit_deleted_at",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_visit_deleted_at\" ON \"utm_visit\" (deleted_at) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "utm_visit_pkey",
           "columnNames": [
             "id"
           ],
@@ -544,16 +691,28 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "utm_guest_id_foreign": {
-          "constraintName": "utm_guest_id_foreign",
+        "utm_visit_guest_id_foreign": {
+          "constraintName": "utm_visit_guest_id_foreign",
           "columnNames": [
             "guest_id"
           ],
-          "localTableName": "public.utm",
+          "localTableName": "public.utm_visit",
           "referencedColumnNames": [
             "id"
           ],
           "referencedTableName": "public.guest",
+          "updateRule": "cascade"
+        },
+        "utm_visit_utm_source_id_foreign": {
+          "constraintName": "utm_visit_utm_source_id_foreign",
+          "columnNames": [
+            "utm_source_id"
+          ],
+          "localTableName": "public.utm_visit",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.utm_source",
           "updateRule": "cascade"
         }
       }

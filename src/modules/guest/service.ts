@@ -1,12 +1,14 @@
 import { MedusaService } from "@medusajs/framework/utils"
 import { Guest } from "./models/guest"
 import crypto from "crypto"
-import { UTM } from "./models/utm"
 import { StageHistory } from "./models/stage-history"
+import { UTMSource } from "./models/utm-source"
+import { UTMVisit } from "./models/utm-visit"
 
 class GuestModuleService extends MedusaService({
   Guest,
-  UTM,
+  UTMSource,
+  UTMVisit,
   StageHistory,
 }) {
   async createNewGuest(): Promise<any> {
