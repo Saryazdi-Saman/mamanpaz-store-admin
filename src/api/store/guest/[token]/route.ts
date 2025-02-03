@@ -24,6 +24,6 @@ export const GET = async (
     if (!guest || guest.length === 0 || guest[0].cart === null) {
         res.status(404).json({ message: "Guest not found" })
     } else {
-        res.json({ cart_id: guest[0].cart.id, token: guest[0].token })
+        res.json({ cart_id: guest[0].cart.id, token: guest[0].token, guest: guest[0] })
     }
 }

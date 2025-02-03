@@ -80,8 +80,26 @@
           "nullable": true,
           "mappedType": "text"
         },
-        "address": {
-          "name": "address",
+        "address_line1": {
+          "name": "address_line1",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "address_line2": {
+          "name": "address_line2",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "address_line3": {
+          "name": "address_line3",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -91,6 +109,60 @@
         },
         "city": {
           "name": "city",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "province": {
+          "name": "province",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "postal_code": {
+          "name": "postal_code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "country": {
+          "name": "country",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "neighborhood": {
+          "name": "neighborhood",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "region": {
+          "name": "region",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "district": {
+          "name": "district",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -108,6 +180,15 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "phone_verification_code": {
+          "name": "phone_verification_code",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
         "last_active_at": {
           "name": "last_active_at",
           "type": "timestamptz",
@@ -117,15 +198,6 @@
           "nullable": false,
           "length": 6,
           "mappedType": "datetime"
-        },
-        "phone_verification_code": {
-          "name": "phone_verification_code",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "text"
         },
         "token": {
           "name": "token",
