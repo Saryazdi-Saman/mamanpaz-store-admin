@@ -1,7 +1,7 @@
 import { model } from "@medusajs/framework/utils"
 import { OnboardingStage } from "../types"
 import { StageHistory } from "./stage-history"
-import { UTMVisit } from "./utm-visit"
+import { Visit } from "./visit"
 
 export const Guest = model.define("guest", {
   id: model.id().primaryKey(),
@@ -30,7 +30,7 @@ export const Guest = model.define("guest", {
   process_history: model.hasMany(() => StageHistory, {
     mappedBy: "guest",
   }),
-  visits: model.hasMany(() => UTMVisit, {
+  visits: model.hasMany(() => Visit, {
     mappedBy: "guest",
   }),
 })

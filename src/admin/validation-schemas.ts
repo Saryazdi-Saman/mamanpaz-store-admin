@@ -149,7 +149,7 @@ export const CreateCampaignSchema = z.object({
     source: z.nativeEnum(UTM_Source),
     content: z.nativeEnum(UTM_Content),
     term: z.string().nullable(),
-    short_path: z.string()
+    code: z.string()
         .transform(val => val.trim())
         .refine(val => val.length > 0, "Short link is required"),
     destination_url: z.string()

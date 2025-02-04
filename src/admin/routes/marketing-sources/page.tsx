@@ -3,15 +3,15 @@ import { useEffect, useState } from "react"
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { PhotoSolid } from "@medusajs/icons"
 import { InferTypeOf } from "@medusajs/framework/types"
-import { UtmSource } from "../../../modules/guest/models/utm-source"
+import { QrLink } from "../../../modules/marketing/models/qr-link"
 import CreateMarketingCampaignForm from "../../components/create-campaign"
 
 const MarketingSourcesPage = () => {
     const [open, setOpen] = useState(false)
-    const [utms, setUtms] = useState<InferTypeOf<typeof UtmSource>[]>([])
+    const [utms, setUtms] = useState<InferTypeOf<typeof QrLink>[]>([])
 
     const fetchSources = () => {
-        fetch(`/admin/utm`, {
+        fetch(`/admin/shortlink`, {
             credentials: "include",
         })
             .then((res) => res.json())
@@ -41,7 +41,7 @@ const MarketingSourcesPage = () => {
                     </Drawer.Trigger>
                     <Drawer.Content>
                         <Drawer.Header>
-                            <Drawer.Title>Create UTM</Drawer.Title>
+                            <Drawer.Title>Create a shortlink</Drawer.Title>
                         </Drawer.Header>
                         <Drawer.Body>
                             <CreateMarketingCampaignForm onSuccess={() => {
@@ -91,7 +91,7 @@ const MarketingSourcesPage = () => {
                                 {utm.term ? utm.term : "-"}
                             </Table.Cell>
                             <Table.Cell className="text-center">
-                                 {utm.visits ? utm.visits.length : "0"}
+                                 {utm.visits}
                             </Table.Cell>
                         </Table.Row>
                     ))}
@@ -102,7 +102,7 @@ const MarketingSourcesPage = () => {
 }
 
 export const config = defineRouteConfig({
-    label: "Marketing Sources",
+    label: "Shortlinks",
     icon: PhotoSolid,
 })
 

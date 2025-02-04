@@ -28,7 +28,7 @@ const CreateMarketingCampaignForm = ({
     source: "",
     content: "",
     term: "",
-    short_path: "",
+    code: "",
     destination_url: "",
   })
 
@@ -244,13 +244,13 @@ const CreateMarketingCampaignForm = ({
             value={plan?.term}
             onChange={(e) => updatePlan("term", e.target.value)}
           />
-          <Label htmlFor="short_path">short_path :</Label>
+          <Label htmlFor="code">code :</Label>
           <Input
-            id="short_path"
-            name="short_path"
+            id="code"
+            name="code"
             type="text"
-            value={plan?.short_path}
-            onChange={(e) => updatePlan("short_path", e.target.value)}
+            value={plan?.code}
+            onChange={(e) => updatePlan("code", e.target.value)}
           />
           <Label htmlFor="destination_url">destination_url :</Label>
           <Input

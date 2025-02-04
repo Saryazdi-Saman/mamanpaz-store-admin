@@ -4,7 +4,7 @@ import { z } from "zod";
 
 export const getCampaigns = async (): Promise<CampaignDTO[] | undefined>  => {
     try {
-        const response = await fetch("/admin/utm/campaign", {
+        const response = await fetch("/admin/shortlink/campaign", {
             method: "GET",
             credentials: "include",
         })
@@ -23,7 +23,7 @@ export const getCampaigns = async (): Promise<CampaignDTO[] | undefined>  => {
 
 export const createUtmSource = async (data: z.infer<typeof CreateCampaignSchema>) => {
     try {
-        const response = await fetch("/admin/utm", {
+        const response = await fetch("/admin/shortlink", {
             method: "POST",
             credentials: "include",
             headers: {
