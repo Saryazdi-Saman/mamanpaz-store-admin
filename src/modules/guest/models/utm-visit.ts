@@ -1,6 +1,6 @@
 import { model } from "@medusajs/framework/utils";
 import { Guest } from "./guest";
-import { UTMSource } from "./utm-source";
+import { UtmSource } from "./utm-source";
 
 export const UTMVisit = model.define("utm_visit", {
     id: model.id().primaryKey(),
@@ -10,7 +10,7 @@ export const UTMVisit = model.define("utm_visit", {
     guest: model.belongsTo(() => Guest, {
         mappedBy: "visits",
     }),
-    utm_source: model.belongsTo(() => UTMSource, {
+    utm_source: model.belongsTo(() => UtmSource, {
         mappedBy: "visits",
     }),
 })

@@ -2,12 +2,12 @@ import { MedusaService } from "@medusajs/framework/utils"
 import { Guest } from "./models/guest"
 import crypto from "crypto"
 import { StageHistory } from "./models/stage-history"
-import { UTMSource } from "./models/utm-source"
+import { UtmSource } from "./models/utm-source"
 import { UTMVisit } from "./models/utm-visit"
 
 class GuestModuleService extends MedusaService({
   Guest,
-  UTMSource,
+  UtmSource,
   UTMVisit,
   StageHistory,
 }) {

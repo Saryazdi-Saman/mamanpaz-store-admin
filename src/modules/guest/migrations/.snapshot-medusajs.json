@@ -435,6 +435,15 @@
           "nullable": false,
           "mappedType": "text"
         },
+        "campaign_name": {
+          "name": "campaign_name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
         "source": {
           "name": "source",
           "type": "text",
@@ -446,15 +455,6 @@
         },
         "medium": {
           "name": "medium",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "campaign": {
-          "name": "campaign",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
