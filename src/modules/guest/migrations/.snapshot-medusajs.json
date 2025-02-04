@@ -426,17 +426,8 @@
           "nullable": false,
           "mappedType": "text"
         },
-        "source": {
-          "name": "source",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "medium": {
-          "name": "medium",
+        "ip_address": {
+          "name": "ip_address",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -444,8 +435,8 @@
           "nullable": true,
           "mappedType": "text"
         },
-        "campaign": {
-          "name": "campaign",
+        "user_agent": {
+          "name": "user_agent",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -453,8 +444,8 @@
           "nullable": true,
           "mappedType": "text"
         },
-        "term": {
-          "name": "term",
+        "referer": {
+          "name": "referer",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -462,8 +453,53 @@
           "nullable": true,
           "mappedType": "text"
         },
-        "content": {
-          "name": "content",
+        "origin": {
+          "name": "origin",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "utm_source": {
+          "name": "utm_source",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "utm_medium": {
+          "name": "utm_medium",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "utm_campaign": {
+          "name": "utm_campaign",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "utm_content": {
+          "name": "utm_content",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "utm_term": {
+          "name": "utm_term",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -513,27 +549,27 @@
           "mappedType": "datetime"
         }
       },
-      "name": "utm",
+      "name": "visit",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "IDX_utm_guest_id",
+          "keyName": "IDX_visit_guest_id",
           "columnNames": [],
           "composite": false,
           "primary": false,
           "unique": false,
-          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_guest_id\" ON \"utm\" (guest_id) WHERE deleted_at IS NULL"
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_visit_guest_id\" ON \"visit\" (guest_id) WHERE deleted_at IS NULL"
         },
         {
-          "keyName": "IDX_utm_deleted_at",
+          "keyName": "IDX_visit_deleted_at",
           "columnNames": [],
           "composite": false,
           "primary": false,
           "unique": false,
-          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_utm_deleted_at\" ON \"utm\" (deleted_at) WHERE deleted_at IS NULL"
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_visit_deleted_at\" ON \"visit\" (deleted_at) WHERE deleted_at IS NULL"
         },
         {
-          "keyName": "utm_pkey",
+          "keyName": "visit_pkey",
           "columnNames": [
             "id"
           ],
@@ -544,12 +580,12 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "utm_guest_id_foreign": {
-          "constraintName": "utm_guest_id_foreign",
+        "visit_guest_id_foreign": {
+          "constraintName": "visit_guest_id_foreign",
           "columnNames": [
             "guest_id"
           ],
-          "localTableName": "public.utm",
+          "localTableName": "public.visit",
           "referencedColumnNames": [
             "id"
           ],

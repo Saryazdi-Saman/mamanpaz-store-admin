@@ -22,6 +22,9 @@ module.exports = defineConfig({
       resolve: "./src/modules/subscription-plan",
     },
     {
+      resolve: "./src/modules/marketing",
+    },
+    {
       resolve: "@medusajs/medusa/notification",
       options: {
         providers: [

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UTM_Content, UTM_Medium, UTM_Source } from "./types";
 
 const slugify = (str: string) => {
     return str
@@ -131,4 +132,27 @@ export const CreateDeliveryPlanSchema = z.object({
                 .positive("Price must be greater than 0")
                 .multipleOf(0.01, "Price must have at most 2 decimal places")
         )
+})
+
+export const CreateCampaignSchema = z.object({
+    name: z.string()
+        .transform(val => val.trim())
+        .refine(val => val.length > 0, "Name is required"),
+    campaign: z.string()
+        .transform(val => val.trim())
+        .refine(val => val.length > 0, "Campaign is required"),
+    campaign_id: z.string()
+        .transform(val => val.trim())
+        .refine(val => val.length > 0, "Campaign is required"),
+    promotion: z.string().nullable(),
+    medium: z.nativeEnum(UTM_Medium),
+    source: z.nativeEnum(UTM_Source),
+    content: z.nativeEnum(UTM_Content),
+    term: z.string().nullable(),
+    code: z.string()
+        .transform(val => val.trim())
+        .refine(val => val.length > 0, "Short link is required"),
+    destination_url: z.string()
+        .transform(val => val.trim())
+        .refine(val => val.length > 0, "Redirect destination is required"),
 })
