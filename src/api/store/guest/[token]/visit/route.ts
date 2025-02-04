@@ -8,8 +8,15 @@ export const POST = async (
     res: MedusaResponse
 ) => {
     const guestModule = req.scope.resolve(GUEST_MODULE)
+    const guest = await guestModule.listGuests({
+        token: req.params.token,
+    })
+    if (!guest.length) {
+        return res.status(404).send()
+    }
+    
     await guestModule.createVisits({
-        guest_id: req.body.guest_id,
+        guest_id: guest[0].id,
         ip_address: req.body.ip_address,
         user_agent: req.body.user_agent,
         referer: req.body.referer,
