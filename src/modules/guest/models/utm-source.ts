@@ -9,7 +9,7 @@ export const UtmSource = model.define("utm_source", {
     medium: model.text(),
     content: model.text().nullable(),
     term: model.text().nullable(),
-    short_path: model.text().unique(),
+    short_path: model.text().unique().index(),
     destination_url: model.text().nullable(),
     visits: model.hasMany(() => UTMVisit, {
         mappedBy: "utm_source",

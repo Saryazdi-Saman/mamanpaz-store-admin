@@ -28,7 +28,9 @@ export const POST = async (
     res: MedusaResponse
 ) => {
     const guestModule = req.scope.resolve(GUEST_MODULE)
-    
+    const destination_url = req.body.destination_url.length === 0
+        || req.body.destination_url[0] === "/" ? req.body.destination_url : '/' + req.body.destination_url
+
     try {
         const createdUtm = await guestModule.createUtmSources({
             name: req.body.name,
@@ -38,10 +40,10 @@ export const POST = async (
             content: req.body.content,
             term: req.body.term,
             short_path: req.body.short_path,
-            destination_url: req.body.destination_url,
+            destination_url: '/' + req.body.destination_url,
         })
         const link = req.scope.resolve(ContainerRegistrationKeys.LINK)
-        
+
         await link.create({
             [GUEST_MODULE]: {
                 utm_source_id: createdUtm.id,
@@ -69,7 +71,7 @@ export const POST = async (
         return res.json({
             message: "Campaign created successfully",
         })
-    } catch(e) {
+    } catch (e) {
         console.log("ERROR", e)
         res.status(500).send()
     }

@@ -17,7 +17,6 @@ const MarketingSourcesPage = () => {
             .then((res) => res.json())
             .then(({ data }) => {
                 setUtms(data)
-                console.log(data)
             })
     }
 
@@ -29,7 +28,7 @@ const MarketingSourcesPage = () => {
         <Container className="price-tier-table">
             <div className="flex justify-between items-center mb-4">
                 <Heading level="h2">
-                    Delivery Plans
+                    Tracking Tags
                 </Heading>
                 <Drawer open={open} onOpenChange={(openChanged) => setOpen(openChanged)}>
                     <Drawer.Trigger
@@ -42,7 +41,7 @@ const MarketingSourcesPage = () => {
                     </Drawer.Trigger>
                     <Drawer.Content>
                         <Drawer.Header>
-                            <Drawer.Title>Create Price Tier</Drawer.Title>
+                            <Drawer.Title>Create UTM</Drawer.Title>
                         </Drawer.Header>
                         <Drawer.Body>
                             <CreateMarketingCampaignForm onSuccess={() => {
