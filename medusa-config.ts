@@ -37,8 +37,28 @@ module.exports = defineConfig({
               twilioNumber: process.env.TWILIO_PHONE_NUMBER,
               channels: [ "sms" ]
             }
-          }
-        ]
+          },
+        ],
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/file",
+      options: {
+        providers: [
+          // {
+          //   resolve: "@medusajs/medusa/file-local",
+          //   id: "local",
+          // },
+          {
+            resolve: "./src/modules/imagekit",
+            id: "imagekit",
+            options: {
+              publicKey : process.env.IMAGEKIT_PUBLIC_KEY,
+              privateKey : process.env.IMAGEKIT_PRIVATE_KEY,
+              urlEndpoint :  process.env.IMAGEKIT_URL_ENDPOINT,
+            },
+          },
+        ],
       },
     },
   ],
