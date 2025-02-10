@@ -298,6 +298,21 @@ export default async function seedDemoData({ container }: ExecArgs) {
           description:
             "Try our meals before you commit to a plan.",
           handle: "extra-meal",
+          options: [{
+            title: "Default",
+            values: ["Default"],
+          }],
+          variants: [{
+            title: "Extra Meal",
+            options:{
+              Default: "Default",
+            },
+            prices: [{
+              currency_code: "cad",
+              amount: 22,
+            }],
+            manage_inventory: false,
+          }],
           status: ProductStatus.PUBLISHED,
           sales_channels: [
             {

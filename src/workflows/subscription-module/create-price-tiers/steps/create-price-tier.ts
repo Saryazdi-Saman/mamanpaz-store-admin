@@ -4,11 +4,13 @@ import SubscriptionPlanModuleService from "src/modules/subscription/service"
 
 export type CreatePriceTierInput = {
     name: string,
+    slug: string,
     meals_per_week: number,
     meals_per_day: number,
     category: string,
     price_per_meal: number,
     delivery_schedule_id: string,
+    customer_group_name: string,
 }
 
 const createPriceTierStep = createStep(

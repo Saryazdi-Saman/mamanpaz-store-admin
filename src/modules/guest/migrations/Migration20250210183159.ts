@@ -1,6 +1,6 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20250210021829 extends Migration {
+export class Migration20250210183159 extends Migration {
 
   async up(): Promise<void> {
     this.addSql('create table if not exists "guest" ("id" text not null, "current_stage" text not null default \'initial\', "phone_number" text null, "phone_verified" boolean not null default false, "email" text null, "password" text null, "name" text null, "last_name" text null, "address_line1" text null, "address_line2" text null, "address_line3" text null, "city" text null, "province" text null, "postal_code" text null, "country" text null, "neighborhood" text null, "region" text null, "district" text null, "expires_at" timestamptz not null, "phone_verification_code" text null, "last_active_at" timestamptz not null, "token" text not null, "created_at" timestamptz not null default now(), "updated_at" timestamptz not null default now(), "deleted_at" timestamptz null, constraint "guest_pkey" primary key ("id"));');

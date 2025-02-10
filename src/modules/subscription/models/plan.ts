@@ -6,6 +6,7 @@ const Plan = model.define("plan", {
     id: model.id().primaryKey(),
     name: model.text(),
     slug: model.text().unique(),
+    customer_group_name: model.text().unique(),
     meals_per_week: model.number(),
     meals_per_day: model.number(),
     price_per_meal: model.bigNumber(),

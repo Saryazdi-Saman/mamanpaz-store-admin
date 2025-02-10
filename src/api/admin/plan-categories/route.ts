@@ -42,7 +42,6 @@ export const POST = async (
             id: req.body.id
         }
     })
-    console.log(planCategories[0])
 
     res.json({
         plans: planCategories[0].plans,

@@ -1,17 +1,21 @@
-import createPriceTierStep, { CreatePriceTierInput } from "./steps/create-price-tier"
+import createPriceTierStep from "./steps/create-price-tier"
 import { createWorkflow, transform, WorkflowResponse } from "@medusajs/framework/workflows-sdk"
 import createPlanCategoryStep from "./steps/create-plan-category"
-import { createProductsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/core-flows"
+import { createCustomerGroupsWorkflow, createPriceListsWorkflow, createProductsWorkflow, createRemoteLinkStep, updateProductVariantsWorkflow, upsertVariantPricesWorkflow } from "@medusajs/medusa/core-flows"
 import { Modules, ProductStatus } from "@medusajs/framework/utils"
 import { SUBSCRIPTION_MODULE } from "src/modules/subscription"
 import getPlanProductCategoryStep from "./steps/get-plan-product-category"
 import getPlanProductTypeStep from "./steps/get-plan-product-type"
 import createProductVariantOptions from "./steps/create-product-variant-options"
+import createInputDataStep from "./steps/create-input-data"
+import getExtraMealProductVariant from "./steps/get-extra-meal-product-variant"
+import createPriceListInput from "./steps/create-price-list-input"
 
 type CreateSubscriptionPlanPackageWorkflowInput = {
     name: string,
     price_tiers: {
         name: string,
+        slug: string,
         meals_per_week: number,
         meals_per_day: number,
         price_per_meal: number,
@@ -29,34 +33,18 @@ const createPriceTiersWorkflow = createWorkflow(
             name
         })
 
-        const createPriceTierInput = transform(
-            {
-                price_tiers,
-                plan_category,
-            },
-            (data) => data.price_tiers.map((priceTier) => {
-                const { delivery_schedule_title, ...createPlanInput } = priceTier;
-                const newTierData = {
-                    ...createPlanInput,
-                    category: data.plan_category.id,
-                }
-                return newTierData
-            })
-        )
+        const {
+            price_tier_input_data: priceTiersInputData,
+            customer_group_input_data: customerGroupNames,
+        } = createInputDataStep({
+            name,
+            category_id: plan_category.id,
+            price_tiers,
+        })
 
         const { price_tiers: priceTiers } = createPriceTierStep(
-            createPriceTierInput
+            priceTiersInputData
         )
-
-        // const variants_meal_options = transform(
-        //     { price_tiers },
-        //     (data) => data.price_tiers.map((priceTier) => priceTier.name)
-        // )
-
-        // const variants_delivery_options = transform(
-        //     { price_tiers },
-        //     (data) => data.price_tiers.map((priceTier) => priceTier.delivery_schedule_title)
-        // )
 
         const productVariants = transform(
             { price_tiers },
@@ -105,6 +93,27 @@ const createPriceTiersWorkflow = createWorkflow(
                         variants: productVariants,
                     }
                 ],
+            }
+        })
+
+        createCustomerGroupsWorkflow.runAsStep({
+            input: {
+                customersData: customerGroupNames,
+            }
+        })
+
+
+        const {extra_meal_variant_id} = getExtraMealProductVariant()
+
+        const { price_lists_input_data: priceListInputData } = createPriceListInput({
+            category_name: name,
+            extra_meal_variant_id,
+            priceTiersInputData,
+        })
+
+        createPriceListsWorkflow.runAsStep({
+            input: {
+                price_lists_data: priceListInputData,
             }
         })
 

@@ -267,6 +267,15 @@
           "nullable": false,
           "mappedType": "text"
         },
+        "customer_group_name": {
+          "name": "customer_group_name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
         "meals_per_week": {
           "name": "meals_per_week",
           "type": "integer",
@@ -364,6 +373,14 @@
           "primary": false,
           "unique": false,
           "expression": "CREATE UNIQUE INDEX IF NOT EXISTS \"IDX_plan_slug_unique\" ON \"plan\" (slug) WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "IDX_plan_customer_group_name_unique",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE UNIQUE INDEX IF NOT EXISTS \"IDX_plan_customer_group_name_unique\" ON \"plan\" (customer_group_name) WHERE deleted_at IS NULL"
         },
         {
           "keyName": "IDX_plan_category_id",
