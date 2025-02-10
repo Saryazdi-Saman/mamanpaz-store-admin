@@ -5,11 +5,14 @@ import BoxTemplate from "./box-template";
 
 const Subscription = model.define("subscription", {
     id: model.id().primaryKey(),
-    status: model.enum(SubscriptionStatus).default(SubscriptionStatus.ACTIVE),
+    status: model.enum(SubscriptionStatus).default(SubscriptionStatus.PENDING),
     extra_meals: model.number().default(0),
     start_date: model.dateTime(),
     next_order_date: model.dateTime().index().nullable(),
+    next_shipping_date: model.dateTime().nullable(),
+    last_order_date: model.dateTime().nullable(),
     pause_until_date: model.dateTime().nullable(),
+    pause_start_date: model.dateTime().nullable(),
     failed_payment_attempts: model.number().default(0),
     cancellation_date: model.dateTime().nullable(),
     cancellation_reason: model.text().nullable(),
