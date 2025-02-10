@@ -1,14 +1,14 @@
 import { MedusaService } from "@medusajs/framework/utils";
 import PlanCategory from "./models/plan-category";
-import PriceTier from "./models/price-tier";
+import Plan from "./models/plan";
 import DeliveryPlan from "./models/delivery-plan";
 
-class SubscriptionPlanModuleService extends MedusaService ({
+class SubscriptionModuleService extends MedusaService ({
     PlanCategory,
-    PriceTier,
+    Plan,
     DeliveryPlan,
 }){
 
 }
 
-export default SubscriptionPlanModuleService
+export default SubscriptionModuleService

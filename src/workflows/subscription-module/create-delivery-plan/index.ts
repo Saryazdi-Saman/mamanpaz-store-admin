@@ -1,23 +1,14 @@
-import { createWorkflow, transform, WorkflowResponse } from "@medusajs/framework/workflows-sdk"
+import { createWorkflow, WorkflowResponse } from "@medusajs/framework/workflows-sdk"
 import createDeliveryPlanStep from "./steps/create-delivery-plan"
-import createDeliveryProductStep from "./steps/create-delivery-product"
-import { createProductVariantsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/core-flows"
-import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"
-import { Modules } from "@medusajs/framework/utils"
-import getDeliveryProductCategoryStep from "./steps/get-delivery-product-category"
-import getDeliveryProductTypeStep from "./steps/get-delivery-product-type"
-
 export type CreateDeliveryPlanInput = {
     name: string,
-    slug: string,
-    price: number,
-    monday?: number,
-    tuesday?: number,
-    wednesday?: number,
-    thursday?: number,
-    friday?: number,
-    saturday?: number,
-    sunday?: number,
+    day_one?: number,
+    day_two?: number,
+    day_three?: number,
+    day_four?: number,
+    day_five?: number,
+    day_six?: number,
+    day_seven?: number,
 }
 
 const createDeliveryPlanWorkflow = createWorkflow(
@@ -25,54 +16,8 @@ const createDeliveryPlanWorkflow = createWorkflow(
     (input: CreateDeliveryPlanInput) => {
         const { delivery_plan } = createDeliveryPlanStep(input)
 
-        const { product_category } = getDeliveryProductCategoryStep()
-
-        const {product_type_id} = getDeliveryProductTypeStep()
-
-        const { product } = createDeliveryProductStep({
-            category_id: product_category.id,
-            type_id: product_type_id,
-        })
-
-        const variant = createProductVariantsWorkflow.runAsStep({
-            input: {
-                product_variants: [{
-                    product_id: product.id,
-                    title: delivery_plan.name,
-                    prices: [{
-                        amount: delivery_plan.price,
-                        currency_code: "cad",
-                    }],
-                    // options: {
-                    //     Frequency: delivery_plan.name,
-                    // },
-                    manage_inventory: false,
-                    metadata: {
-                        Monday: delivery_plan.monday,
-                        Tuesday: delivery_plan.tuesday,
-                        Wednesday: delivery_plan.wednesday,
-                        Thursday: delivery_plan.thursday,
-                        Friday: delivery_plan.friday,
-                        Saturday: delivery_plan.saturday,
-                        Sunday: delivery_plan.sunday,
-                    }
-                }]
-            },
-        })
-        
-        createRemoteLinkStep([{
-            [ SUBSCRIPTION_PLAN_MODULE ]: {
-                delivery_plan_id: delivery_plan.id,
-            },
-            [ Modules.PRODUCT ]: {
-                product_variant_id: variant[0].id,
-            },
-        }])
-
         return new WorkflowResponse({
             delivery_plan,
-            product_id: product.id,
-            variant_id: variant[0].id,
         })
     }
 )

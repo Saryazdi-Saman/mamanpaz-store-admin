@@ -106,8 +106,10 @@ const CreatPriceTierPackage = ({
     // Clear errors if validation passes
     setErrors({});
     const data = result.data
+    console.log("data")
+    console.log(data)
 
-    fetch("/admin/price-tiers", {
+    fetch("/admin/plans", {
       method: "POST",
       credentials: "include",
       headers: {

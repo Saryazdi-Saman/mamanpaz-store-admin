@@ -1,14 +1,15 @@
 import { Button, Container, Drawer, Heading, Table } from "@medusajs/ui"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { DeliveryPlan } from "../../types"
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { PhotoSolid } from "@medusajs/icons"
 import CreateDeliveryPlanForm from "../../components/create-delivery-plan-form"
+import { InferTypeOf } from "@medusajs/types"
+import DeliveryPlan from "../../../modules/subscription/models/delivery-plan"
 
 const DeliveryPlansPage = () => {
     const [open, setOpen] = useState(false)
-    const [plans, setPlans] = useState<DeliveryPlan[]>([])
+    const [plans, setPlans] = useState<InferTypeOf<typeof DeliveryPlan>[]>([])
 
     const fetchPlans = () => {
         fetch(`/admin/delivery`, {
@@ -42,7 +43,7 @@ const DeliveryPlansPage = () => {
                     </Drawer.Trigger>
                     <Drawer.Content>
                         <Drawer.Header>
-                            <Drawer.Title>Create Price Tier</Drawer.Title>
+                            <Drawer.Title>Create a New delivery schedule</Drawer.Title>
                         </Drawer.Header>
                         <Drawer.Body>
                             <CreateDeliveryPlanForm onSuccess={() => {
@@ -53,69 +54,54 @@ const DeliveryPlansPage = () => {
                     </Drawer.Content>
                 </Drawer>
             </div>
-            {!plans && <div className="flex justify-center items-center">
-                <Heading level="h3" className="text-black/50">no data to show</Heading>
-            </div>}
             <Table>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Title</Table.HeaderCell>
+                        <Table.HeaderCell>Plan Title</Table.HeaderCell>
                         <Table.HeaderCell
                             className="text-center"
                             colSpan={7}
                         >
                             Schedule</Table.HeaderCell>
-                        <Table.HeaderCell className="text-center">Price</Table.HeaderCell>
                     </Table.Row>
                     <Table.Row>
                         <Table.HeaderCell></Table.HeaderCell>
-                        <Table.HeaderCell className="text-center" >Monday</Table.HeaderCell>
-                        <Table.HeaderCell className="text-center">Tuesday</Table.HeaderCell>
-                        <Table.HeaderCell className="text-center">Wednesday</Table.HeaderCell>
-                        <Table.HeaderCell className="text-center">Thursday</Table.HeaderCell>
-                        <Table.HeaderCell className="text-center">Friday</Table.HeaderCell>
-                        <Table.HeaderCell className="text-center">Saturday</Table.HeaderCell>
-                        <Table.HeaderCell className="text-center">Sunday</Table.HeaderCell>
-                        <Table.HeaderCell className="text-center"></Table.HeaderCell>
+                        <Table.HeaderCell className="text-center" >Day 1</Table.HeaderCell>
+                        <Table.HeaderCell className="text-center">Day 2</Table.HeaderCell>
+                        <Table.HeaderCell className="text-center">Day 3</Table.HeaderCell>
+                        <Table.HeaderCell className="text-center">Day 4</Table.HeaderCell>
+                        <Table.HeaderCell className="text-center">Day 5</Table.HeaderCell>
+                        <Table.HeaderCell className="text-center">day 6</Table.HeaderCell>
+                        <Table.HeaderCell className="text-center">Day 7</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {plans.map((plan) => (
                         <Table.Row key={plan.id} >
                             <Table.Cell >
-                                <Link to={`/products/${plan.product_variant.product_id}/variants/${plan.product_variant.id}`}>
-                                    {plan.name}
-                                </Link>
+                                    {plan.title}
                             </Table.Cell>
                             <Table.Cell className="text-center">
-                                {plan.monday ? plan.monday : "-"}
+                                {plan.day1 ? plan.day1 : "-"}
                             </Table.Cell>
                             <Table.Cell className="text-center">
-                                {plan.tuesday ? plan.tuesday : "-"}
+                                {plan.day2 ? plan.day2 : "-"}
                             </Table.Cell>
                             <Table.Cell className="text-center">
-                                {plan.wednesday ? plan.wednesday : "-"}
+                                {plan.day3 ? plan.day3 : "-"}
                             </Table.Cell>
                             <Table.Cell className="text-center">
-                                {plan.thursday ? plan.thursday : "-"}
+                                {plan.day4 ? plan.day4 : "-"}
                             </Table.Cell>
                             <Table.Cell className="text-center">
-                                {plan.friday ? plan.friday : "-"}
+                                {plan.day5 ? plan.day5 : "-"}
                             </Table.Cell>
                             <Table.Cell className="text-center">
-                                {plan.saturday ? plan.saturday : "-"}
+                                {plan.day6 ? plan.day6 : "-"}
                             </Table.Cell>
                             <Table.Cell className="text-center">
-                                {plan.sunday ? plan.sunday : "-"}
+                                {plan.day7 ? plan.day7 : "-"}
                             </Table.Cell>
-                            <Table.Cell className="text-center">
-                                {`$ ${plan.price}`}
-                            </Table.Cell>
-                            {/* <Table.Cell className="text-center">
-                                <Link to={`/products/`}>
-                                    View Product
-                                </Link>
-                            </Table.Cell> */}
                         </Table.Row>
                     ))}
                 </Table.Body>

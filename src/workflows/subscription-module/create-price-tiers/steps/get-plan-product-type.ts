@@ -1,6 +1,6 @@
 import { Modules } from "@medusajs/framework/utils"
 import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
-import { ProductType } from "src/modules/subscription-plan/types"
+import { ProductType } from "src/modules/subscription/types"
 
 const getPlanProductTypeStep = createStep(
     "get-plan-product-type-step",

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Input, Button, toast, CurrencyInput, Label } from "@medusajs/ui"
+import { Input, Button, toast, Label } from "@medusajs/ui"
 import { z } from "zod"
 import { CreateDeliveryPlanSchema } from "../../validation-schemas"
 
@@ -18,15 +18,13 @@ const CreateDeliveryPlanForm = ({
 }: Props) => {
   const [plan, setPlan] = useState({
     name: "",
-    slug: "",
-    monday: "",
-    tuesday: "",
-    wednesday: "",
-    thursday: "",
-    friday: "",
-    saturday: "",
-    sunday: "",
-    price: "",
+    day_one: "",
+    day_two: "",
+    day_three: "",
+    day_four: "",
+    day_five: "",
+    day_six: "",
+    day_seven: "",
   })
   const [errors, setErrors] = useState<ValidationErrors>({})
   const [loading, setLoading] = useState(false)
@@ -101,14 +99,11 @@ const CreateDeliveryPlanForm = ({
         }
         onSuccess?.()
       })
-    // console.log(data)
-    // toast.success("Successfully validated price tier package")
     setLoading(false)
   }
 
   return (
     <form onSubmit={onSubmit}>
-      <div className="flex flex-col gap-2">
         <Input
           name="title"
           placeholder="Title"
@@ -116,96 +111,67 @@ const CreateDeliveryPlanForm = ({
           value={plan?.name}
           onChange={(e) => updatePlan("name", e.target.value)}
         />
-        <Input
-          name="slug"
-          placeholder="slug"
-          type="text"
-          value={plan?.slug}
-          onChange={(e) => updatePlan("slug", e.target.value)}
-        />
-      </div>
       <fieldset className="my-4 space-y-2">
         <legend className="">Schedule</legend>
         <div className="grid grid-cols-[1fr_3fr] gap-y-2 grid-rows-7 justify-items-start">
-          <Label htmlFor="monday">Monday :</Label>
+          <Label htmlFor="day_one">Day 1:</Label>
           <Input
-            id="monday"
-            name="monday"
+            id="day_one"
+            name="day_one"
             type="text"
-            value={plan?.monday}
-            onChange={(e) => updatePlan("monday", e.target.value)}
+            value={plan?.day_one}
+            onChange={(e) => updatePlan("day_one", e.target.value)}
           />
-          <Label htmlFor="tuesday">Tuesday :</Label>
+          <Label htmlFor="day_two">Day 2:</Label>
           <Input
-            id="tuesday"
-            name="tuesday"
+            id="day_two"
+            name="day_two"
             type="text"
-            value={plan?.tuesday}
-            onChange={(e) => updatePlan("tuesday", e.target.value)}
+            value={plan?.day_two}
+            onChange={(e) => updatePlan("day_two", e.target.value)}
           />
-          <Label htmlFor="wednesday">Wednesday :</Label>
+          <Label htmlFor="day_three">Day 3:</Label>
           <Input
-            id="wednesday"
-            name="wednesday"
+            id="day_three"
+            name="day_three"
             type="text"
-            value={plan?.wednesday}
-            onChange={(e) => updatePlan("wednesday", e.target.value)}
+            value={plan?.day_three}
+            onChange={(e) => updatePlan("day_three", e.target.value)}
           />
-          <Label htmlFor="thursday">Thursday :</Label>
+          <Label htmlFor="day_four">Day 4:</Label>
           <Input
-            id="thursday"
-            name="thursday"
+            id="day_four"
+            name="day_four"
             type="text"
-            value={plan?.thursday}
-            onChange={(e) => updatePlan("thursday", e.target.value)}
+            value={plan?.day_four}
+            onChange={(e) => updatePlan("day_four", e.target.value)}
           />
-          <Label htmlFor="friday">Friday :</Label>
+          <Label htmlFor="day_five">Day 5:</Label>
           <Input
-            id="friday"
-            name="friday"
+            id="day_five"
+            name="day_five"
             type="text"
-            value={plan?.friday}
-            onChange={(e) => updatePlan("friday", e.target.value)}
+            value={plan?.day_five}
+            onChange={(e) => updatePlan("day_five", e.target.value)}
           />
-          <Label htmlFor="saturday">Saturday :</Label>
+          <Label htmlFor="day_six">Day 6:</Label>
           <Input
-            id="saturday"
-            name="saturday"
+            id="day_six"
+            name="day_six"
             type="text"
-            value={plan?.saturday}
-            onChange={(e) => updatePlan("saturday", e.target.value)}
+            value={plan?.day_six}
+            onChange={(e) => updatePlan("day_six", e.target.value)}
           />
-          <Label htmlFor="sunday">Sunday :</Label>
+          <Label htmlFor="day_seven">Day 7:</Label>
           <Input
-            id="sunday"
-            name="sunday"
+            id="day_seven"
+            name="day_seven"
             type="text"
-            value={plan?.sunday}
-            onChange={(e) => updatePlan("sunday", e.target.value)}
+            value={plan?.day_seven}
+            onChange={(e) => updatePlan("day_seven", e.target.value)}
           />
         </div>
       </fieldset>
-
-      <fieldset className="my-4 space-y-2">
-        <legend className="">Price</legend>
-        <CurrencyInput
-          symbol="$"
-          code="cad"
-          name="price_per_meal"
-          placeholder="Price / meal"
-          allowDecimals={true}
-          allowNegativeValue={false}
-          decimalScale={2}
-          type="text"
-          className="max-w-48"
-          value={plan.price}
-          onChange={(e) => updatePlan("price", e.target.value)}
-          required
-        />
-      </fieldset>
-
-
-
       <Button
         type="submit"
         isLoading={loading}

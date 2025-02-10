@@ -21,9 +21,9 @@ export const GET = async (
     const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
 
     const {
-        data: priceTiers,
+        data: plans,
     } = await query.graph({
-        entity: "price_tiers",
+        entity: "plans",
         fields: [
             "*",
             ...(fields || []),
@@ -38,7 +38,7 @@ export const GET = async (
     })
 
     res.json({
-        price_tiers: priceTiers,
+        plans: plans,
     })
 }
 
@@ -50,7 +50,9 @@ export const POST = async (
     req: AuthenticatedMedusaRequest<PostRequestBody>,
     res: MedusaResponse
 ) => {
-    const price_tiers = req.validatedBody.price_tiers.map((price_tier) => ({
+    console.log("POST API: request")
+    console.log(req.body)
+    const price_tiers = req.body.price_tiers.map((price_tier) => ({
         ...price_tier,
         meals_per_week: price_tier.meals_per_day * 7,
     }))
@@ -58,7 +60,7 @@ export const POST = async (
         req.scope
     ).run({
         input: {
-            name: req.validatedBody.name,
+            name: req.body.name,
             price_tiers: price_tiers,
         }
     })

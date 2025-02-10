@@ -1,27 +1,25 @@
 import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
 import { CreateDeliveryPlanInput } from ".."
-import SubscriptionPlanModuleService from "src/modules/subscription-plan/service"
-import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"
+import SubscriptionPlanModuleService from "src/modules/subscription/service"
+import { SUBSCRIPTION_MODULE } from "src/modules/subscription"
+import { title } from "process"
 
 const createDeliveryPlanStep = createStep(
     "create-delivery-plan-step",
     async (input: CreateDeliveryPlanInput, { container }) => {
         const subscriptionPlanModuleService: SubscriptionPlanModuleService =
-            container.resolve(SUBSCRIPTION_PLAN_MODULE)
+            container.resolve(SUBSCRIPTION_MODULE)
         
-        const deliveryPlan = await subscriptionPlanModuleService
-            .createDeliveryPlans({
-                name: input.name,
-                slug: input.slug,
-                price: input.price,
-                monday: input.monday,
-                tuesday: input.tuesday,
-                wednesday: input.wednesday,
-                thursday: input.thursday,
-                friday: input.friday,
-                saturday: input.saturday,
-                sunday: input.sunday,
-            })
+        const deliveryPlan = await subscriptionPlanModuleService.createDeliveryPlans({
+            title: input.name,
+            day1: input.day_one,
+            day2: input.day_two,
+            day3: input.day_three,
+            day4: input.day_four,
+            day5: input.day_five,
+            day6: input.day_six,
+            day7: input.day_seven,
+        })
         
         return new StepResponse({
             delivery_plan: deliveryPlan,
@@ -31,7 +29,7 @@ const createDeliveryPlanStep = createStep(
     },
     async (data, { container }) => {
         const subscriptionPlanModuleService: SubscriptionPlanModuleService =
-            container.resolve(SUBSCRIPTION_PLAN_MODULE)
+            container.resolve(SUBSCRIPTION_MODULE)
 
         await subscriptionPlanModuleService.deleteDeliveryPlans(data?.delivery_plan.id)
     }

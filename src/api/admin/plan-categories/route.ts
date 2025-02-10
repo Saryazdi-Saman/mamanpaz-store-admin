@@ -1,8 +1,5 @@
 import { AuthenticatedMedusaRequest, MedusaResponse } from "@medusajs/framework";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
-import { createPriceTierSchema } from "src/api/validation-schemas";
-import createPriceTiersWorkflow from "src/workflows/subscription-module/create-price-tiers";
-import { z } from "zod";
 
 export const GET = async (
     req: AuthenticatedMedusaRequest,
@@ -39,14 +36,15 @@ export const POST = async (
         entity: "plan_category",
         fields: [
             "*",
-            "price_tiers.*",
+            "plans.*",
         ],
         filters: {
             id: req.body.id
         }
     })
+    console.log(planCategories[0])
 
     res.json({
-        price_tiers: planCategories[0].price_tiers,
+        plans: planCategories[0].plans,
     })
 }

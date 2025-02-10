@@ -3,7 +3,7 @@ import { PlanCategory, PriceTier } from "../../types"
 import { Button, Container, Drawer, Heading, Table } from "@medusajs/ui"
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { PhotoSolid } from "@medusajs/icons"
-import CreatPriceTierPackage from "../../components/create-plan-tier-form"
+import CreatPriceTierPackage from "../../components/create-plan-form"
 import { Link } from "react-router-dom"
 
 type TSelectedCategory = {
@@ -42,7 +42,7 @@ const PriceTiersPage = () => {
         })
             .then((res) => res.json())
             .then(({
-                price_tiers: data,
+                plans: data,
             }) => {
                 setPriceTiers(data)
             })
@@ -63,7 +63,7 @@ const PriceTiersPage = () => {
         <>
             <Container className="category-selector">
                 <div className="flex justify-between items-center mb-4">
-                    <Heading level="h2">Packages</Heading>
+                    <Heading level="h2">Categories</Heading>
                     <Drawer open={open} onOpenChange={(openChanged) => setOpen(openChanged)}>
                         <Drawer.Trigger
                             onClick={() => {
@@ -153,7 +153,7 @@ const PriceTiersPage = () => {
 }
 
 export const config = defineRouteConfig({
-    label: "Price Tiers",
+    label: "Plans",
     icon: PhotoSolid,
 })
 

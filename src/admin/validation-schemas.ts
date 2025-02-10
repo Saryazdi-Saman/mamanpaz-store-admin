@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { UTM_Content, UTM_Medium, UTM_Source } from "./types";
+import { title } from "process";
 
 const slugify = (str: string) => {
     return str
@@ -56,10 +57,7 @@ export const CreateDeliveryPlanSchema = z.object({
     name: z.string()
         .transform(val => val.trim())
         .refine(val => val.length > 0, "Name is required"),
-    slug: z.string()
-        .transform(val => slugify(val))
-        .refine(val => val.length > 0, "slug is required"),
-    monday: z.optional(z.string()
+    day_one: z.optional(z.string()
         .transform(val => {
             if (!val) return undefined;
             const number = parseInt(val);
@@ -68,7 +66,7 @@ export const CreateDeliveryPlanSchema = z.object({
         .pipe(
             z.optional(z.number())
         )),
-    tuesday: z.optional(z.string()
+    day_two: z.optional(z.string()
         .transform(val => {
             if (!val) return undefined;
             const number = parseInt(val);
@@ -77,7 +75,7 @@ export const CreateDeliveryPlanSchema = z.object({
         .pipe(
             z.optional(z.number())
         )),
-    wednesday: z.optional(z.string()
+    day_three: z.optional(z.string()
         .transform(val => {
             if (!val) return undefined;
             const number = parseInt(val);
@@ -86,7 +84,7 @@ export const CreateDeliveryPlanSchema = z.object({
         .pipe(
             z.optional(z.number())
         )),
-    thursday: z.optional(z.string()
+    day_four: z.optional(z.string()
         .transform(val => {
             if (!val) return undefined;
             const number = parseInt(val);
@@ -95,7 +93,7 @@ export const CreateDeliveryPlanSchema = z.object({
         .pipe(
             z.optional(z.number())
         )),
-    friday: z.optional(z.string()
+    day_five: z.optional(z.string()
         .transform(val => {
             if (!val) return undefined;
             const number = parseInt(val);
@@ -104,7 +102,7 @@ export const CreateDeliveryPlanSchema = z.object({
         .pipe(
             z.optional(z.number())
         )),
-    saturday: z.optional(z.string()
+    day_six: z.optional(z.string()
         .transform(val => {
             if (!val) return undefined;
             const number = parseInt(val);
@@ -113,7 +111,7 @@ export const CreateDeliveryPlanSchema = z.object({
         .pipe(
             z.optional(z.number())
         )),
-    sunday: z.optional(z.string()
+    day_seven: z.optional(z.string()
         .transform(val => {
             if (!val) return undefined;
             const number = parseInt(val);
@@ -122,16 +120,6 @@ export const CreateDeliveryPlanSchema = z.object({
         .pipe(
             z.optional(z.number())
         )),
-    price: z.string()
-        .transform((val) => {
-            const number = parseFloat(val);
-            return isNaN(number) ? 1 : number;
-        })
-        .pipe(
-            z.number()
-                .positive("Price must be greater than 0")
-                .multipleOf(0.01, "Price must have at most 2 decimal places")
-        )
 })
 
 export const CreateCampaignSchema = z.object({
@@ -155,4 +143,13 @@ export const CreateCampaignSchema = z.object({
     destination_url: z.string()
         .transform(val => val.trim())
         .refine(val => val.length > 0, "Redirect destination is required"),
+})
+
+export const CreatePlanSchema = z.object({
+    title: z.string()
+        .transform(val => val.trim())
+        .refine(val => val.length > 0, "Title is required"),
+    product_id: z.string()
+        .transform(val => val.trim())
+        .refine(val => val.length > 0, "Product is required"),
 })

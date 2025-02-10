@@ -16,8 +16,6 @@ export const GET = async (
         entity: "delivery_plan",
         fields: [
             "*",
-            "product_variant.id",
-            "product_variant.product_id",
         ],
     })
     console.log("deliveryPlans", deliveryPlans)
@@ -39,15 +37,13 @@ export const POST = async (
     ).run({
         input: {
             name: req.validatedBody.name,
-            slug: req.validatedBody.slug,
-            price: req.validatedBody.price,
-            monday: req.validatedBody.monday,
-            tuesday: req.validatedBody.tuesday,
-            wednesday: req.validatedBody.wednesday,
-            thursday: req.validatedBody.thursday,
-            friday: req.validatedBody.friday,
-            saturday: req.validatedBody.saturday,
-            sunday: req.validatedBody.sunday,
+            day_one: req.validatedBody.day_one,
+            day_two: req.validatedBody.day_two,
+            day_three: req.validatedBody.day_three,
+            day_four: req.validatedBody.day_four,
+            day_five: req.validatedBody.day_five,
+            day_six: req.validatedBody.day_six,
+            day_seven: req.validatedBody.day_seven,
         }
     })
 

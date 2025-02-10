@@ -1,4 +1,4 @@
-import { CampaignDTO } from "@medusajs/types"
+import { CampaignDTO, ProductDTO } from "@medusajs/types"
 import { CreateCampaignSchema } from "../validation-schemas";
 import { z } from "zod";
 

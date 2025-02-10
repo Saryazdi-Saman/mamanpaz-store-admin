@@ -17,23 +17,6 @@ export type PlanCategory = {
     }
 }
 
-export type DeliveryPlan = {
-    id: string,
-    name: string,
-    is_active: boolean,
-    price: number,
-    monday: number,
-    tuesday: number,
-    wednesday: number,
-    thursday: number,
-    friday: number,
-    saturday: number,
-    sunday: number,
-    product_variant: {
-        id: string,
-        product_id: string,
-    }
-}
 // WHO sent the traffic? (The specific platform or origin)
 export enum UTM_Source {
     GOOGLE = "google", // Google Ads, Organic Search

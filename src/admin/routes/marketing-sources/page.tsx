@@ -102,7 +102,7 @@ const MarketingSourcesPage = () => {
 }
 
 export const config = defineRouteConfig({
-    label: "Shortlinks",
+    label: "QR Codes",
     icon: PhotoSolid,
 })
 

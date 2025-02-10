@@ -1,6 +1,6 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20250203202852 extends Migration {
+export class Migration20250210021829 extends Migration {
 
   async up(): Promise<void> {
     this.addSql('create table if not exists "guest" ("id" text not null, "current_stage" text not null default \'initial\', "phone_number" text null, "phone_verified" boolean not null default false, "email" text null, "password" text null, "name" text null, "last_name" text null, "address_line1" text null, "address_line2" text null, "address_line3" text null, "city" text null, "province" text null, "postal_code" text null, "country" text null, "neighborhood" text null, "region" text null, "district" text null, "expires_at" timestamptz not null, "phone_verification_code" text null, "last_active_at" timestamptz not null, "token" text not null, "created_at" timestamptz not null default now(), "updated_at" timestamptz not null default now(), "deleted_at" timestamptz null, constraint "guest_pkey" primary key ("id"));');
@@ -14,35 +14,25 @@ export class Migration20250203202852 extends Migration {
     this.addSql('CREATE INDEX IF NOT EXISTS "IDX_stage_history_guest_id" ON "stage_history" (guest_id) WHERE deleted_at IS NULL;');
     this.addSql('CREATE INDEX IF NOT EXISTS "IDX_stage_history_deleted_at" ON "stage_history" (deleted_at) WHERE deleted_at IS NULL;');
 
-    this.addSql('create table if not exists "utm_source" ("id" text not null, "name" text not null, "source" text not null, "medium" text not null, "campaign" text not null, "content" text null, "term" text null, "short_path" text not null, "destination_url" text null, "created_at" timestamptz not null default now(), "updated_at" timestamptz not null default now(), "deleted_at" timestamptz null, constraint "utm_source_pkey" primary key ("id"));');
-    this.addSql('CREATE UNIQUE INDEX IF NOT EXISTS "IDX_utm_source_short_path_unique" ON "utm_source" (short_path) WHERE deleted_at IS NULL;');
-    this.addSql('CREATE INDEX IF NOT EXISTS "IDX_utm_source_deleted_at" ON "utm_source" (deleted_at) WHERE deleted_at IS NULL;');
-
-    this.addSql('create table if not exists "utm_visit" ("id" text not null, "ip_address" text null, "user_agent" text null, "referrer" text null, "guest_id" text not null, "utm_source_id" text not null, "created_at" timestamptz not null default now(), "updated_at" timestamptz not null default now(), "deleted_at" timestamptz null, constraint "utm_visit_pkey" primary key ("id"));');
-    this.addSql('CREATE INDEX IF NOT EXISTS "IDX_utm_visit_guest_id" ON "utm_visit" (guest_id) WHERE deleted_at IS NULL;');
-    this.addSql('CREATE INDEX IF NOT EXISTS "IDX_utm_visit_utm_source_id" ON "utm_visit" (utm_source_id) WHERE deleted_at IS NULL;');
-    this.addSql('CREATE INDEX IF NOT EXISTS "IDX_utm_visit_deleted_at" ON "utm_visit" (deleted_at) WHERE deleted_at IS NULL;');
+    this.addSql('create table if not exists "visit" ("id" text not null, "ip_address" text null, "user_agent" text null, "referer" text null, "origin" text null, "utm_source" text null, "utm_medium" text null, "utm_campaign" text null, "utm_content" text null, "utm_term" text null, "guest_id" text not null, "created_at" timestamptz not null default now(), "updated_at" timestamptz not null default now(), "deleted_at" timestamptz null, constraint "visit_pkey" primary key ("id"));');
+    this.addSql('CREATE INDEX IF NOT EXISTS "IDX_visit_guest_id" ON "visit" (guest_id) WHERE deleted_at IS NULL;');
+    this.addSql('CREATE INDEX IF NOT EXISTS "IDX_visit_deleted_at" ON "visit" (deleted_at) WHERE deleted_at IS NULL;');
 
     this.addSql('alter table if exists "stage_history" add constraint "stage_history_guest_id_foreign" foreign key ("guest_id") references "guest" ("id") on update cascade;');
 
-    this.addSql('alter table if exists "utm_visit" add constraint "utm_visit_guest_id_foreign" foreign key ("guest_id") references "guest" ("id") on update cascade;');
-    this.addSql('alter table if exists "utm_visit" add constraint "utm_visit_utm_source_id_foreign" foreign key ("utm_source_id") references "utm_source" ("id") on update cascade;');
+    this.addSql('alter table if exists "visit" add constraint "visit_guest_id_foreign" foreign key ("guest_id") references "guest" ("id") on update cascade;');
   }
 
   async down(): Promise<void> {
     this.addSql('alter table if exists "stage_history" drop constraint if exists "stage_history_guest_id_foreign";');
 
-    this.addSql('alter table if exists "utm_visit" drop constraint if exists "utm_visit_guest_id_foreign";');
-
-    this.addSql('alter table if exists "utm_visit" drop constraint if exists "utm_visit_utm_source_id_foreign";');
+    this.addSql('alter table if exists "visit" drop constraint if exists "visit_guest_id_foreign";');
 
     this.addSql('drop table if exists "guest" cascade;');
 
     this.addSql('drop table if exists "stage_history" cascade;');
 
-    this.addSql('drop table if exists "utm_source" cascade;');
-
-    this.addSql('drop table if exists "utm_visit" cascade;');
+    this.addSql('drop table if exists "visit" cascade;');
   }
 
 }

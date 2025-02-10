@@ -3,7 +3,7 @@ import { createWorkflow, transform, WorkflowResponse } from "@medusajs/framework
 import createPlanCategoryStep from "./steps/create-plan-category"
 import { createProductsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/core-flows"
 import { Modules, ProductStatus } from "@medusajs/framework/utils"
-import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan"
+import { SUBSCRIPTION_MODULE } from "src/modules/subscription"
 import getPlanProductCategoryStep from "./steps/get-plan-product-category"
 import getPlanProductTypeStep from "./steps/get-plan-product-type"
 
@@ -49,7 +49,6 @@ const createPriceTiersWorkflow = createWorkflow(
             (data) => data.price_tiers.map((priceTier) => {
                 return {
                     title: priceTier.name,
-                    sku: priceTier.name,
                     options: {
                         Plans: priceTier.name,
                     },
@@ -92,8 +91,8 @@ const createPriceTiersWorkflow = createWorkflow(
             { priceTiers, product },
             (data) => data.priceTiers.map((priceTier) => {
                 return {
-                    [SUBSCRIPTION_PLAN_MODULE]: {
-                        price_tier_id: priceTier.id,
+                    [SUBSCRIPTION_MODULE]: {
+                        plan_id: priceTier.id,
                     },
                     [Modules.PRODUCT]: {
                         product_variant_id: data.product[0].variants.find((variant) => variant.title === priceTier.name)?.id,
@@ -105,7 +104,7 @@ const createPriceTiersWorkflow = createWorkflow(
         const createLinkInput = transform(
             { linkedPlansAndVariants, product, plan_category },
             (data) => [...data.linkedPlansAndVariants, {
-                [SUBSCRIPTION_PLAN_MODULE]: {
+                [SUBSCRIPTION_MODULE]: {
                     plan_category_id: data.plan_category.id,
                 },
                 [Modules.PRODUCT]: {
@@ -118,7 +117,7 @@ const createPriceTiersWorkflow = createWorkflow(
 
         return new WorkflowResponse({
             category: plan_category,
-            price_tiers: priceTiers,
+            plans: priceTiers,
             product_id: product[0].id,
         })
     },

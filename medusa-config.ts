@@ -19,7 +19,7 @@ module.exports = defineConfig({
       resolve: "./src/modules/guest",
     },
     {
-      resolve: "./src/modules/subscription-plan",
+      resolve: "./src/modules/subscription",
     },
     {
       resolve: "./src/modules/marketing",

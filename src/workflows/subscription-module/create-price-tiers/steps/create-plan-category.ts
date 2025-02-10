@@ -1,6 +1,6 @@
 import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk";
-import { SUBSCRIPTION_PLAN_MODULE } from "src/modules/subscription-plan";
-import SubscriptionPlanModuleService from "src/modules/subscription-plan/service";
+import { SUBSCRIPTION_MODULE } from "src/modules/subscription";
+import SubscriptionPlanModuleService from "src/modules/subscription/service";
 
 export type CreatePlanCategoryInput = {
     name: string,
@@ -9,7 +9,7 @@ const createPlanCategoryStep = createStep(
     "create-plan-category-step",
     async (data: CreatePlanCategoryInput, { container }) => {
         const subscriptionPlanModuleService: SubscriptionPlanModuleService =
-            container.resolve(SUBSCRIPTION_PLAN_MODULE)
+            container.resolve(SUBSCRIPTION_MODULE)
             
         const planCategory = await subscriptionPlanModuleService
             .createPlanCategories({
@@ -24,7 +24,7 @@ const createPlanCategoryStep = createStep(
     },
     async (data, { container }) => {
         const subscriptionPlanModuleService: SubscriptionPlanModuleService =
-            container.resolve(SUBSCRIPTION_PLAN_MODULE)
+            container.resolve(SUBSCRIPTION_MODULE)
 
         await subscriptionPlanModuleService.deletePlanCategories(data?.plan_category.id)
     }
