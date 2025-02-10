@@ -8,7 +8,6 @@ export const GET = async (
     req: AuthenticatedMedusaRequest,
     res: MedusaResponse
 ) => {
-    console.log("GET REQUEST RECIEVED")
     const query = req.scope.resolve(ContainerRegistrationKeys.QUERY)
     const {
         data: deliveryPlans,
@@ -18,7 +17,6 @@ export const GET = async (
             "*",
         ],
     })
-    console.log("deliveryPlans", deliveryPlans)
     res.json({
         data: deliveryPlans,
     })

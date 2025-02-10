@@ -50,8 +50,6 @@ export const POST = async (
     req: AuthenticatedMedusaRequest<PostRequestBody>,
     res: MedusaResponse
 ) => {
-    console.log("POST API: request")
-    console.log(req.body)
     const price_tiers = req.body.price_tiers.map((price_tier) => ({
         ...price_tier,
         meals_per_week: price_tier.meals_per_day * 7,

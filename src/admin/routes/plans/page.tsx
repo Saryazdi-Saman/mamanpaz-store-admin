@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { PlanCategory, PriceTier } from "../../types"
-import { Button, Container, Drawer, Heading, Table } from "@medusajs/ui"
+import { Button, Container, FocusModal, Heading, Table } from "@medusajs/ui"
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { PhotoSolid } from "@medusajs/icons"
 import CreatPriceTierPackage from "../../components/create-plan-form"
@@ -64,28 +64,19 @@ const PriceTiersPage = () => {
             <Container className="category-selector">
                 <div className="flex justify-between items-center mb-4">
                     <Heading level="h2">Categories</Heading>
-                    <Drawer open={open} onOpenChange={(openChanged) => setOpen(openChanged)}>
-                        <Drawer.Trigger
-                            onClick={() => {
-                                setOpen(true)
-                            }}
+                    <FocusModal open={open} onOpenChange={(openChanged) => setOpen(openChanged)}>
+                        <FocusModal.Trigger
+                            onClick={() => { setOpen(true) }}
                             asChild
                         >
                             <Button>Create</Button>
-                        </Drawer.Trigger>
-                        <Drawer.Content>
-                            <Drawer.Header>
-                                <Drawer.Title>Create Price Tier</Drawer.Title>
-                            </Drawer.Header>
-                            <Drawer.Body>
-                                <CreatPriceTierPackage onSuccess={() => {
-                                    setOpen(false)
-                                    fetchPriceTiers()
-                                    fetchCategories()
-                                }} />
-                            </Drawer.Body>
-                        </Drawer.Content>
-                    </Drawer>
+                        </FocusModal.Trigger>
+                        <CreatPriceTierPackage onSuccess={() => {
+                            setOpen(false)
+                            fetchPriceTiers()
+                            fetchCategories()
+                        }} />
+                    </FocusModal>
                 </div>
                 <div className="flex flex-wrap items-center justify-start gap-2">
                     {planCategories.map((category) => (

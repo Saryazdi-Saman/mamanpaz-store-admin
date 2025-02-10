@@ -6,10 +6,18 @@ import { Modules, ProductStatus } from "@medusajs/framework/utils"
 import { SUBSCRIPTION_MODULE } from "src/modules/subscription"
 import getPlanProductCategoryStep from "./steps/get-plan-product-category"
 import getPlanProductTypeStep from "./steps/get-plan-product-type"
+import createProductVariantOptions from "./steps/create-product-variant-options"
 
 type CreateSubscriptionPlanPackageWorkflowInput = {
     name: string,
-    price_tiers: Omit<CreatePriceTierInput, "category">[],
+    price_tiers: {
+        name: string,
+        meals_per_week: number,
+        meals_per_day: number,
+        price_per_meal: number,
+        delivery_schedule_id: string,
+        delivery_schedule_title: string,
+    }[],
 }
 
 const createPriceTiersWorkflow = createWorkflow(
@@ -27,8 +35,9 @@ const createPriceTiersWorkflow = createWorkflow(
                 plan_category,
             },
             (data) => data.price_tiers.map((priceTier) => {
+                const { delivery_schedule_title, ...createPlanInput } = priceTier;
                 const newTierData = {
-                    ...priceTier,
+                    ...createPlanInput,
                     category: data.plan_category.id,
                 }
                 return newTierData
@@ -39,10 +48,15 @@ const createPriceTiersWorkflow = createWorkflow(
             createPriceTierInput
         )
 
-        const variant_options = transform(
-            { price_tiers },
-            (data) => data.price_tiers.map((priceTier) => priceTier.name)
-        )
+        // const variants_meal_options = transform(
+        //     { price_tiers },
+        //     (data) => data.price_tiers.map((priceTier) => priceTier.name)
+        // )
+
+        // const variants_delivery_options = transform(
+        //     { price_tiers },
+        //     (data) => data.price_tiers.map((priceTier) => priceTier.delivery_schedule_title)
+        // )
 
         const productVariants = transform(
             { price_tiers },
@@ -50,7 +64,8 @@ const createPriceTiersWorkflow = createWorkflow(
                 return {
                     title: priceTier.name,
                     options: {
-                        Plans: priceTier.name,
+                        Meals: priceTier.name,
+                        Delivery: priceTier.delivery_schedule_title,
                     },
                     prices: [
                         {
@@ -67,6 +82,8 @@ const createPriceTiersWorkflow = createWorkflow(
 
         const { product_type_id } = getPlanProductTypeStep()
 
+        const { options } = createProductVariantOptions(price_tiers)
+
         const product = createProductsWorkflow.runAsStep({
             input: {
                 products: [
@@ -77,8 +94,12 @@ const createPriceTiersWorkflow = createWorkflow(
                         status: ProductStatus.PUBLISHED,
                         options: [
                             {
-                                title: "Plans",
-                                values: variant_options,
+                                title: "Meals",
+                                values: options.meals,
+                            },
+                            {
+                                title: "Delivery",
+                                values: options.delivery,
                             },
                         ],
                         variants: productVariants,

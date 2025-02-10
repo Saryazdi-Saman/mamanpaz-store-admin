@@ -1,6 +1,5 @@
 import { Button, Container, Drawer, Heading, Table } from "@medusajs/ui"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { PhotoSolid } from "@medusajs/icons"
 import CreateDeliveryPlanForm from "../../components/create-delivery-plan-form"
@@ -23,7 +22,7 @@ const DeliveryPlansPage = () => {
     }
 
     useEffect(() => {
-            fetchPlans()
+        fetchPlans()
     }, [])
 
     return (
@@ -79,7 +78,7 @@ const DeliveryPlansPage = () => {
                     {plans.map((plan) => (
                         <Table.Row key={plan.id} >
                             <Table.Cell >
-                                    {plan.title}
+                                {plan.title}
                             </Table.Cell>
                             <Table.Cell className="text-center">
                                 {plan.day1 ? plan.day1 : "-"}

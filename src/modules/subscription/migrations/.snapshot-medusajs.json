@@ -303,6 +303,15 @@
           "nullable": false,
           "mappedType": "text"
         },
+        "delivery_schedule_id": {
+          "name": "delivery_schedule_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
         "raw_price_per_meal": {
           "name": "raw_price_per_meal",
           "type": "jsonb",
@@ -365,6 +374,14 @@
           "expression": "CREATE INDEX IF NOT EXISTS \"IDX_plan_category_id\" ON \"plan\" (category_id) WHERE deleted_at IS NULL"
         },
         {
+          "keyName": "IDX_plan_delivery_schedule_id",
+          "columnNames": [],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_plan_delivery_schedule_id\" ON \"plan\" (delivery_schedule_id) WHERE deleted_at IS NULL"
+        },
+        {
           "keyName": "IDX_plan_deleted_at",
           "columnNames": [],
           "composite": false,
@@ -395,6 +412,18 @@
           ],
           "referencedTableName": "public.plan_category",
           "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "plan_delivery_schedule_id_foreign": {
+          "constraintName": "plan_delivery_schedule_id_foreign",
+          "columnNames": [
+            "delivery_schedule_id"
+          ],
+          "localTableName": "public.plan",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.delivery_plan",
           "updateRule": "cascade"
         }
       }

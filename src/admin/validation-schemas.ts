@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { UTM_Content, UTM_Medium, UTM_Source } from "./types";
-import { title } from "process";
 
 const slugify = (str: string) => {
     return str
@@ -18,13 +17,19 @@ export const PriceTierSchema = z.object({
     slug: z.string()
         .transform(val => slugify(val))
         .refine(val => val.length > 0, "slug is required"),
-    meals_per_day: z.number()
-        .int("Must be a whole number")
-        .min(1, "Must provide at least 1 meal per day"),
+    delivery_schedule_id: z.string().trim().nonempty("Delivery schedule is required"),
+    delivery_schedule_title: z.string().trim().nonempty("Delivery schedule is required"),
+    meals_per_day: z.string()
+        .transform(val => {
+            if (!val) return undefined;
+            const number = parseInt(val);
+            return number;
+        })
+        .pipe(z.number()),
     price_per_meal: z.string()
         .transform((val) => {
             const number = parseFloat(val);
-            return isNaN(number) ? 1 : number;
+            return number;
         })
         .pipe(
             z.number()
@@ -39,8 +44,8 @@ export const PriceTiersArraySchema = z.array(PriceTierSchema)
     .nonempty("Must provide at least 1 price tier")
     .refine(
         (tiers) => {
-            const names = new Set(tiers.map(tier => tier.name.trim()));
-            return names.size === tiers.length;
+            const slugs = new Set(tiers.map(tier => tier.slug.trim()));
+            return slugs.size === tiers.length;
         },
         "Each tier must have a unique name"
     );

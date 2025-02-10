@@ -2,7 +2,10 @@ import { z } from "zod";
 
 export const createPriceTierSchema = z.object({
     name: z.string(),
+    delivery_plan_id: z.string(),
     price_tiers: z.array(z.object({
+        delivery_schedule_id: z.string(),
+        delivery_schedule_title: z.string(),
         name: z.string(),
         slug: z.string(),
         meals_per_day: z.number(),

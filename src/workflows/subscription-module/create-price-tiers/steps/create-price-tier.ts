@@ -8,6 +8,7 @@ export type CreatePriceTierInput = {
     meals_per_day: number,
     category: string,
     price_per_meal: number,
+    delivery_schedule_id: string,
 }
 
 const createPriceTierStep = createStep(
