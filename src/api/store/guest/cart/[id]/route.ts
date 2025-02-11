@@ -1,7 +1,6 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
-import { ContainerRegistrationKeys, Token } from "@medusajs/framework/utils";
+import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 import { addToCartWorkflow, deleteLineItemsWorkflow } from "@medusajs/medusa/core-flows";
-import { GUEST_MODULE } from "src/modules/guest";
 import { OnboardingStage } from "src/modules/guest/types";
 import updateGuestWorkflow from "src/workflows/guest-module/update-guest";
 

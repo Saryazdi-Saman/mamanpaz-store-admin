@@ -9,7 +9,6 @@ import {
 } from "@medusajs/medusa/core-flows"
 import createSubscriptionStep from "./steps/create-subscription"
 import { SubscriptionStatus } from "src/modules/subscription/types"
-import { OrderDTO } from "@medusajs/types"
 
 type WorkflowInput = {
     cart_id: string,
