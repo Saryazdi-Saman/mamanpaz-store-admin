@@ -7,9 +7,9 @@ const Subscription = model.define("subscription", {
     id: model.id().primaryKey(),
     status: model.enum(SubscriptionStatus).default(SubscriptionStatus.PENDING),
     extra_meals: model.number().default(0),
-    start_date: model.dateTime(),
-    next_order_date: model.dateTime().index().nullable(),
-    next_shipping_date: model.dateTime().nullable(),
+    start_date: model.dateTime(), 
+    next_order_date: model.dateTime().index().nullable(), // next day for processing payment.
+    next_shipping_date: model.dateTime().nullable(), // next week's subscription starting day. Typically 2 days after next order day.
     last_order_date: model.dateTime().nullable(),
     pause_until_date: model.dateTime().nullable(),
     pause_start_date: model.dateTime().nullable(),
