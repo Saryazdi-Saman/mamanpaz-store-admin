@@ -1,7 +1,7 @@
 import createPriceTierStep from "./steps/create-price-tier"
 import { createWorkflow, transform, WorkflowResponse } from "@medusajs/framework/workflows-sdk"
 import createPlanCategoryStep from "./steps/create-plan-category"
-import { createCustomerGroupsWorkflow, createPriceListsWorkflow, createProductsWorkflow, createRemoteLinkStep, updateProductVariantsWorkflow, upsertVariantPricesWorkflow } from "@medusajs/medusa/core-flows"
+import { createCustomerGroupsWorkflow, createPriceListsWorkflow, createProductsWorkflow, createRemoteLinkStep } from "@medusajs/medusa/core-flows"
 import { Modules, ProductStatus } from "@medusajs/framework/utils"
 import { SUBSCRIPTION_MODULE } from "src/modules/subscription"
 import getPlanProductCategoryStep from "./steps/get-plan-product-category"
@@ -10,6 +10,7 @@ import createProductVariantOptions from "./steps/create-product-variant-options"
 import createInputDataStep from "./steps/create-input-data"
 import getExtraMealProductVariant from "./steps/get-extra-meal-product-variant"
 import createPriceListInput from "./steps/create-price-list-input"
+import getSalesChannelsStep from "./steps/get-sales-channels"
 
 type CreateSubscriptionPlanPackageWorkflowInput = {
     name: string,
@@ -47,21 +48,29 @@ const createPriceTiersWorkflow = createWorkflow(
         )
 
         const productVariants = transform(
-            { price_tiers },
-            (data) => data.price_tiers.map((priceTier) => {
+            { priceTiers },
+            (data) => data.priceTiers.map((plan) => {
+                
                 return {
-                    title: priceTier.name,
+                    title: `${plan.name} - Delivered ${plan.delivery_schedule.title}`,
                     options: {
-                        Meals: priceTier.name,
-                        Delivery: priceTier.delivery_schedule_title,
+                        Meals: plan.name,
+                        Delivery: plan.delivery_schedule.title,
                     },
                     prices: [
                         {
-                            amount: priceTier.price_per_meal * priceTier.meals_per_week,
+                            amount: plan.price_per_meal * plan.meals_per_week,
                             currency_code: "cad",
                         },
                     ],
                     manage_inventory: false,
+                    metadata: {
+                        plan_id: plan.id,
+                        meals_per_week: plan.price_per_meal,
+                        meals_per_day: plan.meals_per_day,
+                        price_per_meal: plan.price_per_meal,
+                        delivery_schedule: plan.delivery_schedule
+                    },
                 }
             })
         )
@@ -69,6 +78,8 @@ const createPriceTiersWorkflow = createWorkflow(
         const { product_category } = getPlanProductCategoryStep()
 
         const { product_type_id } = getPlanProductTypeStep()
+
+        const { sales_channels_ids } = getSalesChannelsStep()
 
         const { options } = createProductVariantOptions(price_tiers)
 
@@ -90,6 +101,7 @@ const createPriceTiersWorkflow = createWorkflow(
                                 values: options.delivery,
                             },
                         ],
+                        sales_channels: sales_channels_ids,
                         variants: productVariants,
                     }
                 ],
@@ -125,7 +137,7 @@ const createPriceTiersWorkflow = createWorkflow(
                         plan_id: priceTier.id,
                     },
                     [Modules.PRODUCT]: {
-                        product_variant_id: data.product[0].variants.find((variant) => variant.title === priceTier.name)?.id,
+                        product_variant_id: data.product[0].variants.find((variant) => variant.metadata?.plan_id === priceTier.id)?.id,
                     },
                 }
             })
