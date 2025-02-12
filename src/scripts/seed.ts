@@ -1,6 +1,5 @@
 import {
   createApiKeysWorkflow,
-  createInventoryLevelsWorkflow,
   createProductCategoriesWorkflow,
   createProductsWorkflow,
   createRegionsWorkflow,
@@ -10,15 +9,16 @@ import {
   createStockLocationsWorkflow,
   createTaxRegionsWorkflow,
   linkSalesChannelsToApiKeyWorkflow,
-  linkSalesChannelsToStockLocationWorkflow,
   updateStoresWorkflow,
 } from "@medusajs/medusa/core-flows";
-import { CreateInventoryLevelInput, ExecArgs } from "@medusajs/framework/types";
+import { ExecArgs } from "@medusajs/framework/types";
 import {
   ContainerRegistrationKeys,
   Modules,
   ProductStatus,
 } from "@medusajs/framework/utils";
+import createDeliveryPlanWorkflow from "src/workflows/subscription-module/create-delivery-plan";
+import createPriceTiersWorkflow from "src/workflows/subscription-module/create-price-tiers";
 
 export default async function seedDemoData({ container }: ExecArgs) {
   const logger = container.resolve(ContainerRegistrationKeys.LOGGER);
@@ -52,21 +52,6 @@ export default async function seedDemoData({ container }: ExecArgs) {
     defaultSalesChannel = salesChannelResult;
   }
 
-  await updateStoresWorkflow(container).run({
-    input: {
-      selector: { id: store.id },
-      update: {
-        supported_currencies: [
-          {
-            currency_code: "cad",
-            is_default: true,
-          },
-        ],
-        default_sales_channel_id: defaultSalesChannel[0].id,
-      },
-    },
-  });
-
   logger.info("Seeding region data...");
   const { result: regionResult } = await createRegionsWorkflow(container).run({
     input: {
@@ -82,6 +67,23 @@ export default async function seedDemoData({ container }: ExecArgs) {
   });
   const region = regionResult[0];
   logger.info("Finished seeding regions.");
+
+  await updateStoresWorkflow(container).run({
+    input: {
+      selector: { id: store.id },
+      update: {
+        name: "Mamanpaz Meals Store",
+        supported_currencies: [
+          {
+            currency_code: "cad",
+            is_default: true,
+          },
+        ],
+        default_sales_channel_id: defaultSalesChannel[0].id,
+        default_region_id: region.id
+      },
+    },
+  });
 
   logger.info("Seeding tax regions...");
   await createTaxRegionsWorkflow(container).run({
@@ -272,11 +274,11 @@ export default async function seedDemoData({ container }: ExecArgs) {
     input: {
       product_categories: [
         {
-          name: "Plan",
+          name: "Plans",
           is_active: true,
         },
         {
-          name: "Meal",
+          name: "Meals",
           is_active: true,
         },
         {
@@ -304,7 +306,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           }],
           variants: [{
             title: "Extra Meal",
-            options:{
+            options: {
               Default: "Default",
             },
             prices: [{
@@ -324,5 +326,158 @@ export default async function seedDemoData({ container }: ExecArgs) {
     },
   });
   logger.info("Finished seeding product data.");
+
+  logger.info("Seeding delivery data...");
+
+  const { result: deliver_biweekly } = await createDeliveryPlanWorkflow(container).run({
+    input: {
+      name: "Biweekly",
+      day_one: 3,
+      day_four: 4,
+    },
+  })
+
+  const { result: deliver_triweekly } = await createDeliveryPlanWorkflow(container).run({
+    input: {
+      name: "Triweekly",
+      day_one: 2,
+      day_three: 2,
+      day_five: 3,
+    },
+  })
+
+  const { result: deliver_daily } = await createDeliveryPlanWorkflow(container).run({
+    input: {
+      name: "Daily",
+      day_one: 1,
+      day_two: 1,
+      day_three: 1,
+      day_four: 1,
+      day_five: 1,
+      day_six: 1,
+      day_seven: 1,
+    },
+  })
+  logger.info("Finished seeding delivery data.");
+
+  logger.info("Seeding meal plan data...");
+
+  await createPriceTiersWorkflow(container).run({
+    input: {
+      name: "Maman's Care Package",
+      price_tiers: [
+        {
+          name: "1 Meal/Day",
+          slug: "one-meal-biweekly",
+          meals_per_week: 7,
+          meals_per_day: 1,
+          price_per_meal: 16.50,
+          delivery_schedule_id: deliver_biweekly.id,
+          delivery_schedule_title: deliver_biweekly.title
+        },
+        {
+          name: "1 Meal/Day",
+          slug: "one-meal-triweekly",
+          meals_per_week: 7,
+          meals_per_day: 1,
+          price_per_meal: 18.50,
+          delivery_schedule_id: deliver_triweekly.id,
+          delivery_schedule_title: deliver_triweekly.title
+        },
+        {
+          name: "1 Meal/Day",
+          slug: "one-meal-daily",
+          meals_per_week: 7,
+          meals_per_day: 1,
+          price_per_meal: 20.50,
+          delivery_schedule_id: deliver_daily.id,
+          delivery_schedule_title: deliver_daily.title
+        },
+        {
+          name: "2 Meals/Day",
+          slug: "two-meals-biweekly",
+          meals_per_week: 14,
+          meals_per_day: 2,
+          price_per_meal: 16,
+          delivery_schedule_id: deliver_biweekly.id,
+          delivery_schedule_title: deliver_biweekly.title
+        },
+        {
+          name: "2 Meals/Day",
+          slug: "two-meals-triweekly",
+          meals_per_week: 14,
+          meals_per_day: 2,
+          price_per_meal: 18,
+          delivery_schedule_id: deliver_triweekly.id,
+          delivery_schedule_title: deliver_triweekly.title
+        },
+        {
+          name: "2 Meals/Day",
+          slug: "two-meals-daily",
+          meals_per_week: 14,
+          meals_per_day: 2,
+          price_per_meal: 20,
+          delivery_schedule_id: deliver_daily.id,
+          delivery_schedule_title: deliver_daily.title
+        },
+        {
+          name: "3 Meals/Day",
+          slug: "three-meals-biweekly",
+          meals_per_week: 21,
+          meals_per_day: 3,
+          price_per_meal: 15.50,
+          delivery_schedule_id: deliver_biweekly.id,
+          delivery_schedule_title: deliver_biweekly.title
+        },
+        {
+          name: "3 Meals/Day",
+          slug: "three-meals-triweekly",
+          meals_per_week: 21,
+          meals_per_day: 3,
+          price_per_meal: 17.50,
+          delivery_schedule_id: deliver_triweekly.id,
+          delivery_schedule_title: deliver_triweekly.title
+        },
+        {
+          name: "3 Meals/Day",
+          slug: "three-meals-daily",
+          meals_per_week: 21,
+          meals_per_day: 3,
+          price_per_meal: 19.50,
+          delivery_schedule_id: deliver_daily.id,
+          delivery_schedule_title: deliver_daily.title
+        },
+        {
+          name: "4 Meals/Day",
+          slug: "four-meals-biweekly",
+          meals_per_week: 28,
+          meals_per_day: 4,
+          price_per_meal: 15,
+          delivery_schedule_id: deliver_biweekly.id,
+          delivery_schedule_title: deliver_biweekly.title
+        },
+        {
+          name: "4 Meals/Day",
+          slug: "four-meals-triweekly",
+          meals_per_week: 28,
+          meals_per_day: 4,
+          price_per_meal: 17,
+          delivery_schedule_id: deliver_triweekly.id,
+          delivery_schedule_title: deliver_triweekly.title
+        },
+        {
+          name: "4 Meals/Day",
+          slug: "four-meals-daily",
+          meals_per_week: 28,
+          meals_per_day: 4,
+          price_per_meal: 19,
+          delivery_schedule_id: deliver_daily.id,
+          delivery_schedule_title: deliver_daily.title
+        },
+      ],
+    },
+  })
+
+  logger.info("Finished seeding delivery data.");
 
 }

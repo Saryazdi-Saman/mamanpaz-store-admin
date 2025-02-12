@@ -16,9 +16,9 @@ const createDeliveryPlanWorkflow = createWorkflow(
     (input: CreateDeliveryPlanInput) => {
         const { delivery_plan } = createDeliveryPlanStep(input)
 
-        return new WorkflowResponse({
+        return new WorkflowResponse(
             delivery_plan,
-        })
+        )
     }
 )
 

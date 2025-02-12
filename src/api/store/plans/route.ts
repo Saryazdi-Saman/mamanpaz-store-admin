@@ -10,7 +10,7 @@ export const GET = async (
     const {
         data: plans,
     } = await query.graph({
-        entity: "price_tiers",
+        entity: "plans",
         fields: [
             "id",
             "name",

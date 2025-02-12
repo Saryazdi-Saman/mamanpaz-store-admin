@@ -3,6 +3,8 @@ import { CreateDeliveryPlanInput } from ".."
 import SubscriptionPlanModuleService from "src/modules/subscription/service"
 import { SUBSCRIPTION_MODULE } from "src/modules/subscription"
 import { title } from "process"
+import { InferTypeOf } from "@medusajs/types"
+import DeliveryPlan from "src/modules/subscription/models/delivery-plan"
 
 const createDeliveryPlanStep = createStep(
     "create-delivery-plan-step",
@@ -19,19 +21,20 @@ const createDeliveryPlanStep = createStep(
             day5: input.day_five,
             day6: input.day_six,
             day7: input.day_seven,
-        })
+        }) as Omit<InferTypeOf<typeof DeliveryPlan>, "plans">
         
         return new StepResponse({
             delivery_plan: deliveryPlan,
         }, {
-            delivery_plan: deliveryPlan
+            plan_id: deliveryPlan.id
         })
     },
     async (data, { container }) => {
         const subscriptionPlanModuleService: SubscriptionPlanModuleService =
             container.resolve(SUBSCRIPTION_MODULE)
-
-        await subscriptionPlanModuleService.deleteDeliveryPlans(data?.delivery_plan.id)
+        if (data?.plan_id){
+            await subscriptionPlanModuleService.deleteDeliveryPlans(data.plan_id)
+        }
     }
 )
 
