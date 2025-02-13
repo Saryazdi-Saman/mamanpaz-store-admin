@@ -66,7 +66,7 @@ const createPriceTiersWorkflow = createWorkflow(
                     manage_inventory: false,
                     metadata: {
                         plan_id: plan.id,
-                        meals_per_week: plan.price_per_meal,
+                        meals_per_week: plan.meals_per_week,
                         meals_per_day: plan.meals_per_day,
                         price_per_meal: plan.price_per_meal,
                         delivery_schedule: plan.delivery_schedule
